@@ -2,45 +2,116 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Origins Rebirth</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
-  <header>
-    <h1>Origins Rebirth</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="origins.html">Origins</a></li>
-        <li><a href="rules.html">Rules</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+  <!-- ✦ BACKGROUND SLIDER -->
+  <div class="background-carousel">
+    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg2.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg3.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg4.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg5.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg6.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg7.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg8.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg9.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg10.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg11.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg12.jpg');"></div>  
+    <div class="slide" style="background-image: url('assets/bg13.jpg');"></div>      
+  </div>
+
+  <!-- ✦ PAGE CONTENT BELOW -->
+  <header class="site-header">
+    <div class="logo-container">
+      <a href="index.html" aria-label="Home">
+        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
+      </a>
+    </div>
+    <h1 class="site-title">Origins Rebirth</h1>
+    <nav class="nav-links" aria-label="Main Navigation">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="origins.html">Origins</a>
+      <a href="rules.html">Rules</a>
+      <a href="contact.html">Join</a>
     </nav>
   </header>
 
-  <main>
-    <h2>About Origins Rebirth</h2>
-    <p>Origins Rebirth is a community-driven Minecraft server built upon the popular Origins mod, reimagined for multiplayer with custom mechanics and unique server-side plugins.</p>
+  <!-- ✦ MAIN CONTENT -->
+  <main class="container">
+    <section class="glass-box">
+      <h2>About the Server</h2>
+      <p><strong>Origins Rebirth</strong> is the next evolution of the beloved Origins Reborn server, officially announced as a continuation of Origins Reborn Season 2. As the original Towny data wasn’t available for restoration, this new server builds on the spirit of its predecessor while introducing fresh changes and preserving cherished elements.</p>
+    </section>
 
-    <h3>History</h3>
-    <p>Originally launched as "Origins Reborn," the server was relaunched under new management with a focus on quality, transparency, and community involvement.</p>
+    <section class="glass-box">
+      <h3>Leadership & Setup</h3>
+      <p>Server development and design is being led by <strong>Flyn</strong>, one of the server's administrators, under the direction of <strong>Intravenous</strong>. Intravenous joined the Origins community in February 2024 and quickly became one of the most active and successful players, known for running a large market, achieving the highest balance, and becoming the all-time top voter.</p>
+    </section>
 
-    <h3>Our Features</h3>
-    <ul>
-        <li>⚙️ Custom-coded plugins for expanded Origin abilities</li>
-        <li>📡 24/7 hosted with 99.9% uptime</li>
-        <li>📌 Active Discord with community polls and support</li>
-    </ul>
+    <section class="glass-box">
+      <h3>Preserving the Past</h3>
+      <p>While the new season starts fresh, the original <strong>Origins Reborn worlds</strong> will remain preserved. Players will be able to explore them in spectator mode to revisit memories and landmarks. An <strong>archived online map</strong> is also planned to showcase these original worlds, complete with Towny regions intact for historical reference.</p>
+    </section>
 
-    <h3>Team</h3>
-    <p>Led by dedicated Minecraft developers and moderators who love the Origins concept and want to bring the best experience possible to players of all platforms.</p>
-    </main>
+    <section class="glass-box">
+      <h3>New Features in Rebirth</h3>
+      <ul>
+        <li>🌍 New worlds with a 10k world border</li>
+        <li>🌋 Overworld and End feature custom world generation; Nether uses default Minecraft terrain</li>
+        <li>🏛️ The spawn area is reused from Origins Reborn, with updates and tweaks</li>
+        <li>📚 An online wiki is being developed to preserve and update documentation over time</li>
+      </ul>
+    </section>
 
+    <section class="glass-box">
+      <h3>Staff and Moderation</h3>
+      <p>The moderation structure for <strong>Origins Rebirth</strong> will be separate from the Kingdoms of Aeonis (KoA) server. This ensures both communities have dedicated support without overloading staff. However, builders, artists, developers, and administrators will continue to serve both communities.</p>
+      <p><strong>Rules remain consistent</strong> across both servers: both are family-friendly and maintain a strict zero-tolerance policy toward rule-breaking or boundary-pushing behavior.</p>
+    </section>
 
-  <footer>
+    <section class="glass-box">
+      <h3>Coming Soon</h3>
+      <p>A temporary "Coming Soon" page is live while setup continues. More features and information will be released as development progresses — stay tuned!</p>
+    </section>
+  </main>
+
+  <!-- ✦ FOOTER -->
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>About</h4>
+      <p>Origins Rebirth is a custom Minecraft server blending the best of Java and Bedrock gameplay with powerful Origins and plugins.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="origins.html">Origins</a></li>
+        <li><a href="rules.html">Rules</a></li>
+        <li><a href="contact.html">Join</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Connect</h4>
+      <ul class="social-links">
+        <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+        <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
     <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
+  </div>
   </footer>
+  <script src="js/script.js"></script>
 </body>
 </html>
