@@ -1,30 +1,113 @@
+/* Reset and Base Styles */
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f4f4f4;
+  background: #f5f5f5;
   color: #333;
+  line-height: 1.6;
 }
-header {
-  background: #222;
-  color: #fff;
-  padding: 1em;
-}
-nav ul {
-  display: flex;
-  list-style: none;
-  gap: 1em;
-}
-nav a {
-  color: white;
+
+a {
+  color: #0078D4;
   text-decoration: none;
 }
-main {
-  padding: 2em;
+
+ul {
+  padding: 0;
+  list-style: none;
 }
+
+/* Navigation */
+.navbar {
+  background: #222;
+  padding: 0.8em 1em;
+  text-align: center;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+}
+
+.navbar a {
+  color: white;
+  font-weight: bold;
+}
+
+/* Hero Banner */
+.hero {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
+  padding: 4em 1em;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 0.3em;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 1em;
+}
+
+.btn-primary {
+  background: #ff9800;
+  color: white;
+  padding: 0.8em 1.5em;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Layout Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2em 1em;
+}
+
+/* Features Section */
+.features .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5em;
+  margin-top: 1em;
+}
+
+.card {
+  background: white;
+  padding: 1.5em;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h4 {
+  margin-top: 0;
+}
+
+/* Call-to-Action Section */
+.cta {
+  background: #2a5298;
+  color: white;
+  text-align: center;
+  padding: 2.5em 1em;
+  margin-top: 2em;
+  border-radius: 8px;
+}
+
+.cta a {
+  margin-top: 1em;
+  display: inline-block;
+}
+
+/* Footer */
 footer {
   background: #222;
-  color: white;
+  color: #aaa;
   text-align: center;
   padding: 1em;
   margin-top: 2em;
