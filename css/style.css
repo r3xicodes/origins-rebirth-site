@@ -82,7 +82,7 @@ ul {
 .card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
-  color: #fff;
+  color: #c6c6c6;
 }
 
 
@@ -93,7 +93,7 @@ ul {
 /* Call-to-Action Section */
 .cta {
   background: #2a5298;
-  color: white;
+  color: rgb(180, 176, 176);
   text-align: center;
   padding: 2.5em 1em;
   margin-top: 2em;
