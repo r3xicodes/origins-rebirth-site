@@ -121,3 +121,27 @@ footer {
   margin-bottom: 2em;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
+/* ✦ Background Carousel */
+.background-carousel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-carousel .slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.background-carousel .slide.active {
+  opacity: 1;
+}
