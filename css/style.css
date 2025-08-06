@@ -8,6 +8,15 @@ body {
   color: #fff;
   line-height: 1.6;
 }
+body {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
 
 a {
   color: #0078D4;
@@ -68,7 +77,7 @@ ul {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2em 1em;
+  padding: 3em 1.5em;
 }
 
 /* Features Section */
@@ -80,11 +89,19 @@ ul {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  color: #c6c6c6;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border-radius: 15px;
+  padding: 1.5em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+}
 
 .card h4 {
   margin-top: 0;
@@ -114,13 +131,13 @@ footer {
   margin-top: 2em;
 }
 .glass-box {
-  background: rgba(255, 255, 255, 0.187);
-  backdrop-filter: blur(8px); /* Optional: adds frosted-glass effect */
-  border-radius: 15px;
+  margin-top: 2em;
   padding: 2em;
-  margin-bottom: 2em;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
+
 /* ✦ Background Carousel */
 .background-carousel {
   background: #111; /* fallback background */
@@ -145,4 +162,58 @@ footer {
 
 .background-carousel .slide.active {
   opacity: 1;
+}
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 2em;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo {
+  width: 60px;
+  height: auto;
+  margin-right: 1em;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #fff;
+}
+
+.site-title {
+  font-size: 1.8rem;
+  color: white;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.75em;
+    margin-top: 1em;
+  }
+}
+
+
+.nav-links a {
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ff9800;
 }

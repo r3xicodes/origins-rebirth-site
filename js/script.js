@@ -9,3 +9,8 @@ function showNextSlide() {
 }
 
 setInterval(showNextSlide, slideInterval);
+// script.js
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+});
