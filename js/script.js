@@ -1,6 +1,6 @@
 let currentSlide = 0;
 const slides = document.querySelectorAll('.background-carousel .slide');
-const slideInterval = 7000; // 7 seconds
+const slideInterval = 7000;
 
 function showNextSlide() {
   slides[currentSlide].classList.remove('active');

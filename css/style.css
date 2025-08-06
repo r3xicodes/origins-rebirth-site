@@ -80,11 +80,11 @@ ul {
 }
 
 .card {
-  background: white;
-  padding: 1.5em;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  color: #fff;
 }
+
 
 .card h4 {
   margin-top: 0;
@@ -123,6 +123,7 @@ footer {
 }
 /* ✦ Background Carousel */
 .background-carousel {
+  background: #111; /* fallback background */
   position: fixed;
   top: 0;
   left: 0;
