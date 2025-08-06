@@ -181,7 +181,7 @@ footer {
 }
 
 .site-logo {
-  width: 60px;
+  width: 40px;
   height: auto;
   margin-right: 1em;
   border-radius: 50%;
@@ -198,16 +198,21 @@ footer {
   .site-header {
     flex-direction: column;
     text-align: center;
+    gap: 1em;
   }
 
   .nav-links {
     flex-direction: column;
-    gap: 0.75em;
+    align-items: center;
     margin-top: 1em;
   }
 }
-
-
+.nav-links {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+}
 .nav-links a {
   color: white;
   font-weight: bold;
@@ -216,4 +221,8 @@ footer {
 
 .nav-links a:hover {
   color: #ff9800;
+}
+.nav-links a.active {
+  color: #ff9800;
+  text-decoration: underline;
 }
