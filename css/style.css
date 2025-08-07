@@ -48,16 +48,22 @@ ul {
 
 /* Hero Banner */
 .hero {
-  padding: 6em 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  color: #fff;
+
+  height: 85vh; /* <-- Increase hero height (70% of screen) */
+  padding: 2rem;
+
+  color: white; /* Ensures text stands out */
 }
 
 .hero h2 {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-size: 3rem;
+  font-size: 3rem; /* Bigger heading */
   font-weight: bold;
   margin: 0;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Readable on any bg */
 }
 
 .hero-content h1 {
