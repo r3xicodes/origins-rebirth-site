@@ -48,10 +48,14 @@ ul {
 
 /* Hero Banner */
 .hero {
-  background: linear-gradient(to right, #1e3c72, #2a5298);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: white;
   padding: 4em 1em;
   text-align: center;
+  border-radius: 12px;
+  margin: 1.5em;
 }
 
 .hero-content h1 {
@@ -89,15 +93,17 @@ ul {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);  /* dark glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #fff;
   border-radius: 15px;
   padding: 1.5em;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   text-align: center;
   transition: transform 0.3s ease;
 }
+
 
 .card:hover {
   transform: translateY(-5px);
@@ -109,8 +115,10 @@ ul {
 
 /* Call-to-Action Section */
 .cta {
-  background: #2a5298;
-  color: rgb(180, 176, 176);
+  background: rgba(0, 0, 0, 0.6); /* darker translucent */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #eee;
   text-align: center;
   padding: 2.5em 1em;
   margin-top: 2em;
@@ -152,6 +160,17 @@ footer {
   z-index: -1;
   overflow: hidden;
 }
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4); /* Adjust opacity to taste */
+  z-index: 0;
+  pointer-events: none;
+}
+
 
 .background-carousel .slide {
   position: absolute;
@@ -277,4 +296,11 @@ footer {
   padding-top: 1em;
   font-size: 0.85rem;
   color: #999;
+}
+
+.site-header,
+.container,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
