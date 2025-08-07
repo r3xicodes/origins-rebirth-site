@@ -89,7 +89,7 @@ ul {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
   color: #fff;
   border-radius: 15px;
@@ -131,11 +131,14 @@ footer {
   margin-top: 2em;
 }
 .glass-box {
-  margin-top: 2em;
-  padding: 2em;
+  background: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+  backdrop-filter: blur(10px);    /* Stronger blur */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
   border-radius: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  padding: 2em;
+  margin-bottom: 2em;
+  color: #fff;                    /* Ensure text stays white */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* Slightly stronger shadow */
 }
 
 /* ✦ Background Carousel */
