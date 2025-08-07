@@ -99,11 +99,11 @@ ul {
   margin: 0 auto;
   padding: 3em 1.5em;
 
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(39, 39, 39, 0.6);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 20px rgba(39, 39, 39, 0.2);
   color: #fff;
 }
 
@@ -117,13 +117,13 @@ ul {
 }
 
 .card {
-  background: rgba(0, 0, 0, 0.55);  /* dark glass effect */
+  background: rgba(39, 39, 39, 0.6);;  /* dark glass effect */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #fff;
   border-radius: 15px;
   padding: 1.5em;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(39, 39, 39, 0.2);
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -139,7 +139,7 @@ ul {
 
 /* Call-to-Action Section */
 .cta {
-  background: rgba(0, 0, 0, 0.6); /* darker translucent */
+  background: rgba(39, 39, 39, 0.6); /* darker translucent */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: #eee;
@@ -163,14 +163,14 @@ footer {
   margin-top: 2em;
 }
 .glass-box {
-  background: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+  background: rgba(39, 39, 39, 0.6); /* Darker background for better contrast */
   backdrop-filter: blur(10px);    /* Stronger blur */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
   border-radius: 15px;
   padding: 2em;
   margin-bottom: 2em;
   color: #fff;                    /* Ensure text stays white */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* Slightly stronger shadow */
+  box-shadow: 0 4px 20px rgba(39, 39, 39, 0.2); /* Slightly stronger shadow */
 }
 
 /* ✦ Background Carousel */
