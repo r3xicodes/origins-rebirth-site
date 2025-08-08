@@ -336,3 +336,53 @@ footer {
   position: relative;
   z-index: 1;
 }
+
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Main Button */
+.dropbtn {
+  color: white;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+
+/* Dropdown Content Box */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  border-radius: 8px;
+  z-index: 20;
+}
+
+/* Links inside Dropdown */
+.dropdown-content a {
+  color: white;
+  padding: 0.75em 1em;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Show on Hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hover effect on About link */
+.dropdown:hover .dropbtn {
+  color: #ff9800;
+}
