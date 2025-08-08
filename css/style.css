@@ -53,7 +53,7 @@ ul {
   align-items: center;
   text-align: center;
 
-  height: 85vh; /* <-- Increase hero height (70% of screen) */
+  height: 100vh; /* <-- Increase hero height (70% of screen) */
   padding: 2rem;
 
   color: white; /* Ensures text stands out */
