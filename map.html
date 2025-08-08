@@ -7,8 +7,41 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Fullscreen map styling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .map-page {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    header, footer {
+      flex-shrink: 0;
+    }
+
+    .map-fullscreen {
+      flex-grow: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-fullscreen iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+
 </head>
-<body>
+<body class="map-page">
   <!-- ✦ BACKGROUND SLIDER -->
   <div class="background-carousel">
     <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
@@ -56,9 +89,10 @@
         <p>Explore the live map of Origins Rebirth, showcasing player builds, towns, and more.</p>
         </section>
     
-        <section class="glass-box map-container">
-        <iframe src="https://map.originsrebirth.com/" title="Origins Rebirth Live Map" frameborder="0" allowfullscreen></iframe>
-        </section>
+          <!-- Fullscreen Map -->
+        <div class="map-fullscreen">
+            <iframe src="https://map.originsrebirth.com/" title="Origins Rebirth Live Map" allowfullscreen></iframe>
+        </div>
     </main>
 
   <!-- ✦ FOOTER -->
