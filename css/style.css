@@ -427,3 +427,28 @@ footer {
   color: white;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
+.origins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5em;
+}
+
+.origin-card {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5em;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.origin-card h3 {
+  margin-top: 0;
+  color: #ff9800;
+}
+
+/* Custom background placeholders per origin */
+.origin-card.origin-elytrian { background-image: url('../assets/origins/elytrian-bg.jpg'); background-size: cover; background-blend-mode: overlay; }
+.origin-card.origin-merling { background-image: url('../assets/origins/merling-bg.jpg'); background-size: cover; background-blend-mode: overlay; }
+/* Add similar classes for each origin */

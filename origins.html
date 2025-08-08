@@ -2,33 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Origins Rebirth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Origins | Origins Rebirth</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-  <header>
-    <h1>Origins Rebirth</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="origins.html">Origins</a></li>
-        <li><a href="rules.html">Rules</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+  <!-- Background Slider -->
+  <div class="background-carousel">
+    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
+    <!-- Add additional slide divs as needed ... -->
+  </div>
+  <div class="background-overlay"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo-container">
+      <a href="index.html" aria-label="Home">
+        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
+      </a>
+    </div>
+    <h1 class="site-title">Origins Rebirth</h1>
+    <nav class="nav-links" aria-label="Main Navigation">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="about.html" class="dropbtn">About ▾</a>
+        <div class="dropdown-content">
+          <a href="wiki.html">Wiki</a>
+          <a href="origins.html" class="active">Origins</a>
+          <a href="map.html">Map</a>
+        </div>
+      </div>
+      <a href="rules.html">Rules</a>
+      <a href="contact.html">Join</a>
     </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>Welcome to Origins Rebirth!</h2>
-      <p>This is a custom Minecraft Origins server that supports Java and Bedrock players. Explore unique plugins, choose your origin, and join a thriving cross-platform community.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Discover Your Origin</h2>
+  </section>
+
+  <!-- Main Content: Origins Grid -->
+  <main class="container">
+    <section class="glass-box">
+      <div class="origins-grid">
+        <!-- Example origins cards; repeat and customize backgrounds per origin -->
+        <div class="origin-card origin-human">
+          <h3>Human</h3>
+          <p>Balanced gameplay with no special abilities or weaknesses.</p>
+        </div>
+        <div class="origin-card origin-elytrian">
+          <h3>Elytrian</h3>
+          <p>Grants elytra wings, aerial boosts, and agility—but disadvantaged in tight spaces.</p>
+        </div>
+        <div class="origin-card origin-shulk">
+          <h3>Shulk</h3>
+          <p>Extra inventory, natural armor, powerful strength—but awkward to wield tools.</p>
+        </div>
+        <div class="origin-card origin-enderian">
+          <h3>Enderian</h3>
+          <p>Teleportation and reach—but weak to water and pumpkins.</p>
+        </div>
+        <div class="origin-card origin-merling">
+          <h3>Merling</h3>
+          <p>Underwater breathing and speed—but cannot survive long out of water.</p>
+        </div>
+        <div class="origin-card origin-blazeborn">
+          <h3>Blazeborn</h3>
+          <p>Fireproof and empowered by heat—but vulnerable to water and venom.</p>
+        </div>
+        <!-- Repeat for other origins like Arachnid, Phantom, Fairy, etc. -->
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>About</h4>
+        <p>Origins Rebirth is a custom Minecraft server blending Java & Bedrock gameplay with powerful Origins and plugins.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="origins.html">Origins</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="contact.html">Join</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <ul class="social-links">
+          <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+          <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+          <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
+    </div>
   </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
