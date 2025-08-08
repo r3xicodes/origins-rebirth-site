@@ -408,3 +408,22 @@ footer {
     height: 400px;
   }
 }
+.subpage-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  height: 60vh;       /* Large space but not full screen */
+  min-height: 500px;  /* Ensures it’s still tall on small screens */
+
+  background: none;   /* No background color or overlay */
+  margin: 0;
+}
+
+.subpage-hero h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
