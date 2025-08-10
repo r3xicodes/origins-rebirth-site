@@ -2,32 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Origins | Origins Rebirth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Origins - Origins Rebirth</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+    }
+    header.site-header, footer.site-footer {
+      background: rgba(20, 20, 20, 0.85);
+      padding: 1rem 2rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header.site-header .logo-container img {
+      height: 40px;
+      vertical-align: middle;
+    }
+    header.site-header .site-title {
+      display: inline-block;
+      margin-left: 10px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      vertical-align: middle;
+      color: #aaffee;
+    }
+    nav.nav-links a {
+      color: #aaffee;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    nav.nav-links a:hover,
+    nav.nav-links a.active {
+      color: #55ddaa;
+    }
+    main.container {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+    .origin-card {
+      background: rgba(255 255 255 / 0.07);
+      border-radius: 12px;
+      padding: 1.6rem;
+      box-shadow: 0 0 12px rgba(0, 150, 150, 0.25);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .origin-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px #33ccbb;
+    }
+    /* Unique background patterns by origin */
+    .origin-alchemist {
+      background-image: repeating-radial-gradient(circle at top left, #7ec8d3 0 10px, transparent 10px 20px);
+    }
+    .origin-arachnid {
+      background-image: repeating-linear-gradient(45deg, #664e27 0 5px, #3a2a11 5px 10px);
+    }
+    .origin-bee {
+      background-image: repeating-linear-gradient(60deg, #f9d71c 0 10px, #b58f00 10px 20px);
+    }
+    .origin-chicken {
+      background-image: repeating-radial-gradient(circle at center, #f4e7cd 0 12px, #d1c3a7 12px 24px);
+    }
+    .origin-enderian {
+      background-image: repeating-linear-gradient(90deg, #3a3f61 0 8px, #1a1d33 8px 16px);
+    }
+    .origin-fairy {
+      background-image: repeating-radial-gradient(circle at bottom right, #bb8fd6 0 10px, transparent 10px 20px);
+    }
+    .origin-giant {
+      background-image: repeating-linear-gradient(135deg, #5a5a5a 0 15px, #333 15px 30px);
+    }
+    .origin-human {
+      background-image: repeating-linear-gradient(0deg, #606060 0 10px, #444 10px 20px);
+    }
+    .origin-huntsman {
+      background-image: repeating-linear-gradient(45deg, #4b5d42 0 10px, #2e3b2a 10px 20px);
+    }
+    .origin-inchling {
+      background-image: repeating-radial-gradient(circle at center, #a1d2e6 0 6px, transparent 6px 12px);
+    }
+    .origin-merling {
+      background-image: repeating-linear-gradient(60deg, #3f7a9b 0 10px, #1a4151 10px 20px);
+    }
+    .origin-pawsworn {
+      background-image: repeating-linear-gradient(30deg, #7a5a3a 0 10px, #4d3a22 10px 20px);
+    }
+    .origin-phytokin {
+      background-image: repeating-radial-gradient(circle at top right, #4a774a 0 12px, transparent 12px 24px);
+    }
+    .origin-phantom {
+      background-image: repeating-linear-gradient(0deg, #5a5874 0 10px, #3a394e 10px 20px);
+    }
+    .origin-shulk {
+      background-image: repeating-linear-gradient(120deg, #4677a9 0 10px, #2a4869 10px 20px);
+    }
+    .origin-werewolf {
+      background-image: repeating-linear-gradient(75deg, #6a3f3f 0 10px, #3a1f1f 10px 20px);
+    }
+
+    .origin-card h2 {
+      margin-top: 0;
+      color: #33ccbb;
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .origin-summary {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+    .stats-section {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+      max-height: 7.5rem;
+      overflow-y: auto;
+      color: #bbb;
+      background: rgba(0,0,0,0.15);
+      border-radius: 6px;
+      padding: 0.6rem;
+    }
+    .abilities {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .ability-icon {
+      cursor: pointer;
+      position: relative;
+      color: #33ccbb;
+      font-size: 1.4rem;
+      filter: drop-shadow(0 0 2px #22aa99);
+    }
+    /* Tooltip styling */
+    .ability-icon:hover .tooltip,
+    .ability-icon:focus .tooltip {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tooltip {
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(50, 50, 50, 0.9);
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      color: #eee;
+      font-size: 0.85rem;
+      line-height: 1.2;
+      white-space: pre-line;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease;
+      width: 260px;
+      z-index: 20;
+      box-shadow: 0 0 8px rgba(0, 255, 200, 0.4);
+    }
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      main.container {
+        grid-template-columns: 1fr;
+        margin: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Background Slider -->
-  <div class="background-carousel">
-    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
-    <!-- Add additional slide divs as needed ... -->
-  </div>
-  <div class="background-overlay"></div>
-
-  <!-- Header -->
   <header class="site-header">
     <div class="logo-container">
       <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
+        <img src="assets/logo.png" alt="Origins Rebirth Logo" />
       </a>
     </div>
-    <h1 class="site-title">Origins Rebirth</h1>
+    <span class="site-title">Origins Rebirth</span>
     <nav class="nav-links" aria-label="Main Navigation">
       <a href="index.html">Home</a>
       <div class="dropdown">
-        <a href="about.html" class="dropbtn">About ▾</a>
+        <a href="about.html" class="dropbtn active">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html" class="active">Origins</a>
@@ -39,44 +211,135 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Discover Your Origin</h2>
-  </section>
+  <main class="container" role="main" aria-label="Origins list">
 
-  <!-- Main Content: Origins Grid -->
-  <main class="container">
-    <section class="glass-box">
-      <div class="origins-grid">
-        <!-- Example origins cards; repeat and customize backgrounds per origin -->
-        <div class="origin-card origin-human">
-          <h3>Human</h3>
-          <p>Balanced gameplay with no special abilities or weaknesses.</p>
-        </div>
-        <div class="origin-card origin-elytrian">
-          <h3>Elytrian</h3>
-          <p>Grants elytra wings, aerial boosts, and agility—but disadvantaged in tight spaces.</p>
-        </div>
-        <div class="origin-card origin-shulk">
-          <h3>Shulk</h3>
-          <p>Extra inventory, natural armor, powerful strength—but awkward to wield tools.</p>
-        </div>
-        <div class="origin-card origin-enderian">
-          <h3>Enderian</h3>
-          <p>Teleportation and reach—but weak to water and pumpkins.</p>
-        </div>
-        <div class="origin-card origin-merling">
-          <h3>Merling</h3>
-          <p>Underwater breathing and speed—but cannot survive long out of water.</p>
-        </div>
-        <div class="origin-card origin-blazeborn">
-          <h3>Blazeborn</h3>
-          <p>Fireproof and empowered by heat—but vulnerable to water and venom.</p>
-        </div>
-        <!-- Repeat for other origins like Arachnid, Phantom, Fairy, etc. -->
+    <!-- Example origin card for Alchemist -->
+    <article class="origin-card origin-alchemist" tabindex="0" aria-labelledby="alchemist-title" role="region">
+      <h2 id="alchemist-title">Alchemist</h2>
+      <p class="origin-summary">
+        Child of a village Librarian and witch, specializing in enchanting, potions, and explosives. Difficulty: 4.
+      </p>
+      <div class="stats-section" aria-label="Alchemist stats summary">
+        <strong>Mobility:</strong> Speed 105% (Sneak 30%), Jump 100%, Luck 0, Size 100%<br />
+        <strong>Damage Taken:</strong> Melee 120%, Projectiles 120%, Explosion 80%, Magic 80%<br />
+        <strong>Health:</strong> 18.0
       </div>
-    </section>
+      <div class="abilities" aria-label="Alchemist abilities">
+        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-primary-desc" role="button" aria-label="Primary Ability: Arcane Analysis">
+          <i class="fa-solid fa-flask-vial"></i>
+          <div class="tooltip" id="alchemist-primary-desc">
+            <strong>Arcane Analysis (30s)</strong><br />
+            Gain experience and change your current enchanting table rolls.<br />
+            Activation: Use primary ability caster or key.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-secondary-desc" role="button" aria-label="Secondary Ability: Catalyst">
+          <i class="fa-solid fa-bottle-droplet"></i>
+          <div class="tooltip" id="alchemist-secondary-desc">
+            <strong>Catalyst</strong><br />
+            Modifies potion effects depending on catalyst type.<br />
+            Activation: Use secondary ability caster or key.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-crouch-desc" role="button" aria-label="Crouch Ability: Arcane Shield">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div class="tooltip" id="alchemist-crouch-desc">
+            <strong>Arcane Shield</strong><br />
+            Generates shield absorbing damage at experience cost.<br />
+            Passive perks include potion throwing range and power boosts.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Add more origin cards with summarized info and unique classes for background -->
+
+    <!-- Arachnid -->
+    <article class="origin-card origin-arachnid" tabindex="0" aria-labelledby="arachnid-title" role="region">
+      <h2 id="arachnid-title">Arachnid</h2>
+      <p class="origin-summary">8 legs and eyes, a crawler specialized in climbing and combat. Difficulty: 2.</p>
+      <div class="stats-section" aria-label="Arachnid stats summary">
+        <strong>Mobility:</strong> Speed 95% (Sneak 70%), Jump 125%, Luck 0, Size 100%<br />
+        <strong>Damage Taken:</strong> Melee 85%, Projectiles 75%, Fire 133%, Explosion 85%<br />
+        <strong>Health:</strong> 18.0
+      </div>
+      <div class="abilities" aria-label="Arachnid abilities">
+        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-secondary-desc" role="button" aria-label="Secondary Ability: Toggle Climb">
+          <i class="fa-solid fa-spider"></i>
+          <div class="tooltip" id="arachnid-secondary-desc">
+            <strong>Toggle Climb</strong><br />
+            Allows climbing on walls.<br />
+            Activation: Use secondary ability key.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive1-desc" role="button" aria-label="Passive Ability: Predator">
+          <i class="fa-solid fa-bone"></i>
+          <div class="tooltip" id="arachnid-passive1-desc">
+            <strong>Predator</strong><br />
+            Eats only meat.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive2-desc" role="button" aria-label="Passive Ability: Nocturnal">
+          <i class="fa-solid fa-moon"></i>
+          <div class="tooltip" id="arachnid-passive2-desc">
+            <strong>Nocturnal</strong><br />
+            Gains buffs based on moon cycle.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive3-desc" role="button" aria-label="Passive Ability: Eighted Armed Architect">
+          <i class="fa-solid fa-person-digging"></i>
+          <div class="tooltip" id="arachnid-passive3-desc">
+            <strong>Eighted Armed Architect</strong><br />
+            Increased combat and build range.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Bee -->
+    <article class="origin-card origin-bee" tabindex="0" aria-labelledby="bee-title" role="region">
+      <h2 id="bee-title">Bee</h2>
+      <p class="origin-summary">Buzziest guy around, loves honey and friends with Phytokins. Difficulty: 2.</p>
+      <div class="stats-section" aria-label="Bee stats summary">
+        <strong>Mobility:</strong> Speed 100% (Sneak 70%), Jump 80%, Luck 0, Size 50%<br />
+        <strong>Damage Taken:</strong> Melee 100%, Projectiles 110%, Magic 110%, Fall 50%<br />
+        <strong>Health:</strong> 14.0
+      </div>
+      <div class="abilities" aria-label="Bee abilities">
+        <div class="ability-icon" tabindex="0" aria-describedby="bee-primary-desc" role="button" aria-label="Primary Ability: Pollinate">
+          <i class="fa-solid fa-poll"></i>
+          <div class="tooltip" id="bee-primary-desc">
+            <strong>Pollinate (60s)</strong><br />
+            Bonemeals saplings, harvests honey and flowers.<br />
+            Grants temporary bonus health to Phytokins.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="bee-secondary-desc" role="button" aria-label="Secondary Ability: Final Sting">
+          <i class="fa-solid fa-skull-crossbones"></i>
+          <div class="tooltip" id="bee-secondary-desc">
+            <strong>Final Sting (Toggle)</strong><br />
+            1% chance to deal 10x damage at cost of half heart.
+          </div>
+        </div>
+        <div class="ability-icon" tabindex="0" aria-describedby="bee-crouch-desc" role="button" aria-label="Crouch Ability: Buzz Away">
+          <i class="fa-solid fa-wind"></i>
+          <div class="tooltip" id="bee-crouch-desc">
+            <strong>Buzz Away</strong><br />
+            Levitate when crouching; faster movement and lower gravity.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- More origins can be added here similarly -->
+
   </main>
+
+  <footer class="site-footer">
+    <p style="text-align:center; font-size: 0.85rem; color: #666;">&copy; 2025 Origins Rebirth. All rights reserved.</p>
+  </footer>
+</body>
+</html>
 
   <!-- Footer -->
   <footer class="site-footer">
