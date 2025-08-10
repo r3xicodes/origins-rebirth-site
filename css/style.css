@@ -448,7 +448,7 @@ main.container {
   transition: transform 0.25s ease;
   position: relative;
   overflow: hidden;
-  color: #eee;
+  color: #b3b2b2;
 }
 .origin-card:hover,
 .origin-card:focus-within {
@@ -505,13 +505,13 @@ main.container {
 .ability-icon {
   cursor: pointer;
   position: relative;
-  color: #33ccbb;
+  color: #ffffff;
   font-size: 1.4rem;
-  filter: drop-shadow(0 0 2px #22aa99);
+  filter: drop-shadow(0 0 2px #e4e4e4);
   outline-offset: 2px;
 }
 .ability-icon:focus {
-  outline: 2px solid #33ccbb;
+  outline: 2px solid #ffffff;
   outline-offset: 4px;
 }
 
@@ -534,7 +534,7 @@ main.container {
   transition: all 0.2s ease;
   width: 260px;
   z-index: 20;
-  box-shadow: 0 0 8px rgba(0, 255, 200, 0.4);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 .ability-icon:hover .tooltip,
 .ability-icon:focus .tooltip {
