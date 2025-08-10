@@ -66,11 +66,11 @@
     }
     .origin-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 0 20px #33ccbb;
+      box-shadow: 0 0 20px #ffffff;
     }
     /* Unique background patterns by origin */
     .origin-alchemist {
-      background-image: repeating-radial-gradient(circle at top left, #7ec8d3 0 10px, transparent 10px 20px);
+      background-image: repeating-radial-gradient(circle at top left, #674272 0 10px, transparent 10px 20px);
     }
     .origin-arachnid {
       background-image: repeating-linear-gradient(45deg, #664e27 0 5px, #3a2a11 5px 10px);
@@ -120,14 +120,14 @@
 
     .origin-card h2 {
       margin-top: 0;
-      color: #33ccbb;
+      color: #000000;
       font-size: 1.5rem;
       margin-bottom: 0.8rem;
     }
     .origin-summary {
       font-size: 0.95rem;
       margin-bottom: 1rem;
-      color: #ddd;
+      color: #6e6e6e;
     }
     .stats-section {
       font-size: 0.85rem;
@@ -135,7 +135,7 @@
       line-height: 1.25;
       max-height: 7.5rem;
       overflow-y: auto;
-      color: #bbb;
+      color: #535353;
       background: rgba(0,0,0,0.15);
       border-radius: 6px;
       padding: 0.6rem;
@@ -148,9 +148,9 @@
     .ability-icon {
       cursor: pointer;
       position: relative;
-      color: #33ccbb;
+      color: #ffffff;
       font-size: 1.4rem;
-      filter: drop-shadow(0 0 2px #22aa99);
+      filter: drop-shadow(0 0 2px #ffffff);
     }
     /* Tooltip styling */
     .ability-icon:hover .tooltip,
@@ -177,7 +177,7 @@
       transition: all 0.2s ease;
       width: 260px;
       z-index: 20;
-      box-shadow: 0 0 8px rgba(0, 255, 200, 0.4);
+      box-shadow: 0 0 8px rgba(224, 224, 224, 0.4);
     }
     /* Responsive tweaks */
     @media (max-width: 600px) {
@@ -189,17 +189,35 @@
   </style>
 </head>
 <body>
+  <!-- ✦ BACKGROUND SLIDER -->
+  <div class="background-carousel">
+    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg2.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg3.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg4.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg5.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg6.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg7.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg8.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg9.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg10.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg11.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg12.jpg');"></div>  
+    <div class="slide" style="background-image: url('assets/bg13.jpg');"></div>      
+  </div>
+  <div class="background-overlay"></div>
+  <!-- ✦ PAGE CONTENT BELOW -->
   <header class="site-header">
     <div class="logo-container">
       <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" />
+        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
       </a>
     </div>
-    <span class="site-title">Origins Rebirth</span>
+    <h1 class="site-title">Origins Rebirth</h1>
     <nav class="nav-links" aria-label="Main Navigation">
       <a href="index.html">Home</a>
       <div class="dropdown">
-        <a href="about.html" class="dropbtn active">About ▾</a>
+        <a href="about.html" class="dropbtn">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html" class="active">Origins</a>
