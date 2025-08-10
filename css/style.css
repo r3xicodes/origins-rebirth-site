@@ -429,26 +429,41 @@ footer {
 }
 .origins-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5em;
 }
 
 .origin-card {
-  background: rgba(0, 0, 0, 0.6);
+  position: relative;
+  border-radius: 15px;
+  padding: 1.5em;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.55); /* Same darkness as glass-box */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 1.5em;
-  border-radius: 15px;
-  text-align: center;
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease-in-out;
 }
 
-.origin-card h3 {
-  margin-top: 0;
-  color: #ff9800;
+.origin-card:hover {
+  transform: translateY(-5px);
 }
 
-/* Custom background placeholders per origin */
-.origin-card.origin-elytrian { background-image: url('../assets/origins/elytrian-bg.jpg'); background-size: cover; background-blend-mode: overlay; }
-.origin-card.origin-merling { background-image: url('../assets/origins/merling-bg.jpg'); background-size: cover; background-blend-mode: overlay; }
-/* Add similar classes for each origin */
+/* Individual origin textures */
+.origin-human    { background-image: url('../assets/origins/human.png'); }
+.origin-elytrian { background-image: url('../assets/origins/elytrian.png'); }
+.origin-shulk    { background-image: url('../assets/origins/shulk.png'); }
+.origin-enderian { background-image: url('../assets/origins/enderian.png'); }
+.origin-merling  { background-image: url('../assets/origins/merling.png'); }
+.origin-blazeborn{ background-image: url('../assets/origins/blazeborn.png'); }
+
+/* Responsive mobile adjustments */
+@media (max-width: 768px) {
+  .origin-card {
+    font-size: 0.9rem;
+    padding: 1em;
+  }
+}
