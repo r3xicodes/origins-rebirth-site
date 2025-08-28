@@ -35,39 +35,17 @@
   h1{font-size:1.6rem; margin:0 0 .5rem}
   .sub{color:var(--muted); margin:.25rem 0 1rem}
 
-  /* Search Bar */
+  /* Search */
   .toolbar{display:grid; grid-template-columns:1fr auto; gap:.75rem; align-items:center}
-  .search-bar {
-    display: flex;
-    justify-content: center;
-    margin: 2rem auto;
-    width: 100%;
-    max-width: 600px;
+  .search{
+    display:flex; gap:.5rem; align-items:center; padding:.65rem .8rem; border:1px solid var(--border);
+    background:var(--panel); border-radius:.75rem;
   }
-
-  .search-bar input {
-    width: 100%;
-    padding: 0.85rem 1.2rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 1.5rem;
-    outline: none;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+  .search input{
+    flex:1; background:transparent; border:0; color:var(--text); outline:none; font-size:.95rem;
   }
-
-  .search-bar input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
-  }
-
-  .search-bar input:focus {
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  }
+  .pill{padding:.45rem .6rem; background:var(--chip); color:var(--chip-text); border:1px solid var(--border); border-radius:999px; font-size:.8rem}
+  .count{opacity:.8; font-size:.9rem}
 
   /* ✦ Tips News Ticker */
   .tips-ticker {
@@ -212,13 +190,13 @@
     </nav>
   </header>
   <header>
-    <div class="toolbar"></div>
-      <div class="search-container" role="search">
-        <input id="search" type="text" placeholder="Search origins, abilities, stats..." />
-        <span class="search-icon">🔍</span>
+    <div class="toolbar">
+      <div class="search" role="search">
+        <span aria-hidden="true">🔎</span>
+        <input id="search" placeholder="Search origins, abilities, or stats…" autocomplete="off" />
       </div>
+      <span class="count" id="count"></span>
     </div>
-    <div id="count" class="count-display"></div>
     <!-- ✦ TIPS TICKER -->
     <div class="tips-ticker" aria-label="Gameplay Tips">
       <div class="ticker-track">
@@ -949,6 +927,7 @@
 </footer>
 
 <script>
+  // Simple client-side search filter
   const q = document.getElementById('search');
   const grid = document.getElementById('grid');
   const cards = Array.from(grid.querySelectorAll('.origin-card'));
