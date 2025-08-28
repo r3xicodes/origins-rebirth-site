@@ -36,6 +36,7 @@
   .sub{color:var(--muted); margin:.25rem 0 1rem}
 
   /* Search Bar */
+  .toolbar{display:grid; grid-template-columns:1fr auto; gap:.75rem; align-items:center}
   .search-bar {
     display: flex;
     justify-content: center;
@@ -211,9 +212,11 @@
     </nav>
   </header>
   <header>
-    <div class="search-container">
-      <input id="search" type="text" placeholder="Search origins, abilities, stats..." />
-      <span class="search-icon">🔍</span>
+    <div class="toolbar"></div>
+      <div class="search-container" role="search">
+        <input id="search" type="text" placeholder="Search origins, abilities, stats..." />
+        <span class="search-icon">🔍</span>
+      </div>
     </div>
     <div id="count" class="count-display"></div>
     <!-- ✦ TIPS TICKER -->
