@@ -1126,34 +1126,41 @@
 <script>
   const track = document.querySelector('.ticker-track');
   const tips = Array.from(track.querySelectorAll('span'));
-  const containerWidth = track.parentElement.offsetWidth;
-  const speed = 1; // pixels per frame
+  const container = track.parentElement;
+  const speed = 100; // pixels per second
+
   let currentIndex = 0;
 
   function animateTip() {
     const tip = tips[currentIndex];
     tip.style.display = 'inline-block';
-    let tipWidth = tip.offsetWidth;
-    let pos = containerWidth; // start just off the right edge
+    const tipWidth = tip.offsetWidth;
+    const containerWidth = container.offsetWidth;
 
-    const frame = () => {
-      pos -= speed;
-      tip.style.transform = `translateX(${pos}px)`;
-      if (pos + tipWidth > 0) {
-        requestAnimationFrame(frame);
-      } else {
-        tip.style.display = 'none';
-        currentIndex = (currentIndex + 1) % tips.length;
-        setTimeout(animateTip, 500); // wait 0.5s before next tip
-      }
-    };
-    frame();
+    // Start just off the right
+    tip.style.transform = `translateX(${containerWidth}px)`;
+
+    // Total distance to move = container width + tip width
+    const distance = containerWidth + tipWidth;
+    const duration = (distance / speed) * 1000; // convert to ms
+
+    // Animate using CSS transition
+    tip.style.transition = `transform ${duration}ms linear`;
+    requestAnimationFrame(() => {
+      tip.style.transform = `translateX(-${tipWidth}px)`;
+    });
+
+    // When finished, hide tip and start next
+    setTimeout(() => {
+      tip.style.display = 'none';
+      tip.style.transition = '';
+      currentIndex = (currentIndex + 1) % tips.length;
+      setTimeout(animateTip, 500); // wait 0.5s before next tip
+    }, duration);
   }
 
-  // Initialize: hide all tips first
+  // Initialize
   tips.forEach(t => t.style.display = 'none');
-
-  // Start ticker
   animateTip();
 </script>
 
