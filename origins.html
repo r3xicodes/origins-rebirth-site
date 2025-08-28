@@ -47,6 +47,36 @@
   .pill{padding:.45rem .6rem; background:var(--chip); color:var(--chip-text); border:1px solid var(--border); border-radius:999px; font-size:.8rem}
   .count{opacity:.8; font-size:.9rem}
 
+  /* ✦ Tips News Ticker */
+  .tips-ticker {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.65); /* translucent black */
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.4);
+  }
+
+  .ticker-track {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 50s linear infinite; /* adjust speed */
+  }
+
+  .ticker-track span {
+    display: inline-block;
+    padding: 0.75rem 3rem;
+    font-weight: 500;
+    color: #e6e6e6;
+  }
+
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
   /* Grid */
   .grid{
     display:grid; gap:1rem; margin:1rem 0 2rem;
@@ -114,6 +144,7 @@
 
   /* Footer tiny */
   footer{color:var(--muted); font-size:.85rem; border-top:1px solid var(--border); padding:1rem}
+  
 </style>
 </head>
 
@@ -165,6 +196,16 @@
         <input id="search" placeholder="Search origins, abilities, or stats…" autocomplete="off" />
       </div>
       <span class="count" id="count"></span>
+    </div>
+    <!-- ✦ TIPS TICKER -->
+    <div class="tips-ticker" aria-label="Gameplay Tips">
+      <div class="ticker-track">
+        <span>💡 Tip: Use the search box to filter by name, abilities (“teleport”, “pollinate”), or keywords (“melee 120%”, “trident”, “climb”).</span>
+        <span>💡 Tip: If on Bedrock, use abilities by emotes.</span>
+        <span>💡 Tip: Use /human then /origin or "F" if on Java.</span>
+        <span>💡 Tip: Crouching + "F" is 2nd ability and "F" is 1st ability on Java.</span>
+        <span>💡 Tip: Shulk is recommended for beginners due to its tough shell and infinite Ender Chest power.</span>
+      </div>
     </div>
   </header>
   
