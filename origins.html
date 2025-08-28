@@ -246,7 +246,7 @@
   }
 
   .tips-ticker span {
-    margin-right: 7rem;
+    margin-right: 4rem;
   }
 
   @keyframes ticker {
@@ -1119,6 +1119,27 @@
   q.addEventListener('input', update);
   update();
 </script>
+<script>
+const ticker = document.querySelector('.ticker-track');
+const tips = Array.from(ticker.querySelectorAll('span'));
+let current = 0;
+
+function showTip(index) {
+  tips.forEach((tip, i) => {
+    tip.style.display = i === index ? 'inline-block' : 'none';
+  });
+}
+
+// Show the first tip immediately
+showTip(current);
+
+// Every 3 seconds, show the next tip
+setInterval(() => {
+  current = (current + 1) % tips.length;
+  showTip(current);
+}, 3000); // change 3000 to how long you want each tip to stay
+</script>
+
 
   <!-- ✦ FOOTER -->
   <footer class="site-footer">
