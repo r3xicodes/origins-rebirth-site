@@ -231,13 +231,14 @@
     TIPS TICKER
   ============================= */
   .tips-ticker {
-    background: rgba(0,0,0,0.7);
+    width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    width: 100%;
+    background: rgba(0,0,0,0.7);
     padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    color: #ccc;
+    font-size: 0.95rem;
+    color: #fff;
+    position: relative;
   }
 
   .ticker-track {
@@ -245,8 +246,12 @@
     animation: ticker 40s linear infinite;
   }
 
-  .tips-ticker span {
-    margin-right: 4rem;
+  .ticker-track span {
+    display: inline-block;
+    margin-right: 4rem; /* wider gap between tips */
+    padding-left: 100%; /* start offscreen */
+    transform: translateX(100%);
+    will-change: transform;
   }
 
   @keyframes ticker {
@@ -1099,46 +1104,35 @@
 </main>
 
 <script>
-  // Simple client-side search filter
-  const q = document.getElementById('search');
-  const grid = document.getElementById('grid');
-  const cards = Array.from(grid.querySelectorAll('.origin-card'));
-  const count = document.getElementById('count');
+const track = document.querySelector('.ticker-track');
+const tips = Array.from(track.querySelectorAll('span'));
+const speed = 2; // pixels per frame
+let currentIndex = 0;
 
-  function update(){
-    const term = q.value.trim().toLowerCase();
-    let shown = 0;
-    cards.forEach(card=>{
-      const hay = (card.dataset.origin + ' ' + card.textContent).toLowerCase();
-      const match = !term || hay.includes(term);
-      card.style.display = match ? '' : 'none';
-      if(match) shown++;
-    });
-    count.textContent = shown + ' / ' + cards.length + ' shown';
-  }
-  q.addEventListener('input', update);
-  update();
-</script>
-<script>
-const ticker = document.querySelector('.ticker-track');
-const tips = Array.from(ticker.querySelectorAll('span'));
-let current = 0;
+function animateTip() {
+  const tip = tips[currentIndex];
+  tip.style.transform = `translateX(100%)`; // start offscreen right
+  tip.style.display = 'inline-block';
 
-function showTip(index) {
-  tips.forEach((tip, i) => {
-    tip.style.display = i === index ? 'inline-block' : 'none';
-  });
+  let pos = tip.offsetWidth; // start at right edge
+  const frame = () => {
+    pos -= speed;
+    tip.style.transform = `translateX(${pos}px)`;
+    if (pos + tip.offsetWidth > 0) {
+      requestAnimationFrame(frame);
+    } else {
+      tip.style.display = 'none'; // hide tip when offscreen left
+      currentIndex = (currentIndex + 1) % tips.length;
+      setTimeout(animateTip, 500); // wait 0.5s before next tip
+    }
+  };
+  frame();
 }
 
-// Show the first tip immediately
-showTip(current);
-
-// Every 3 seconds, show the next tip
-setInterval(() => {
-  current = (current + 1) % tips.length;
-  showTip(current);
-}, 3000); // change 3000 to how long you want each tip to stay
+// Start ticker
+animateTip();
 </script>
+
 
 
   <!-- ✦ FOOTER -->
