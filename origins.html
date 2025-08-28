@@ -145,18 +145,44 @@
   /* Footer tiny */
   footer{color:var(--muted); font-size:.85rem; border-top:1px solid var(--border); padding:1rem}
   
-  /* Make sure dropdowns are on top of everything */
-  .nav-links .dropdown-content {
-    position: absolute;   /* keeps it positioned relative to parent */
-    z-index: 9999;        /* ensures it's above all other content */
-    background-color: #fff; /* optional: keep it visible */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-
-  /* Optional: ensure the parent has relative positioning */
+  /* Dropdown container */
   .nav-links .dropdown {
     position: relative;
+    display: inline-block;
   }
+
+  /* Dropdown content */
+  .nav-links .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* positions directly below parent link */
+    left: 0;
+    min-width: 180px;
+    background: var(--panel); /* dark panel style */
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,.6);
+    z-index: 9999; /* keeps on top of ticker, search, etc */
+  }
+
+  /* Dropdown links */
+  .nav-links .dropdown-content a {
+    color: var(--text);
+    padding: 0.6rem 1rem;
+    display: block;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .nav-links .dropdown-content a:hover {
+    background: var(--chip);
+  }
+
+  /* Show on hover */
+  .nav-links .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
 </style>
 </head>
 
