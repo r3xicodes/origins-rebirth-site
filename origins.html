@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Origins — Cards (Selected)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Origins Rebirth</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
   :root{
     --bg: #0b0f14;
@@ -113,21 +116,48 @@
   footer{color:var(--muted); font-size:.85rem; border-top:1px solid var(--border); padding:1rem}
 </style>
 </head>
-<body>
 
-<header>
-  <div class="container">
-    <h1>Origins — Selected Cards</h1>
-    <p class="sub">Only the entries you provided, organized into clean cards with expand/collapse sections.</p>
-    <div class="toolbar">
-      <div class="search" role="search">
-        <span aria-hidden="true">🔎</span>
-        <input id="search" placeholder="Search origins, abilities, or stats…" autocomplete="off" />
-      </div>
-      <span class="count" id="count"></span>
-    </div>
+<body>
+  <!-- ✦ BACKGROUND SLIDER -->
+  <div class="background-carousel">
+    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg2.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg3.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg4.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg5.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg6.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg7.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg8.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg9.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg10.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg11.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg12.jpg');"></div>
+    <div class="slide" style="background-image: url('assets/bg13.jpg');"></div>
   </div>
-</header>
+  <div class="background-overlay"></div>
+
+  <!-- ✦ PAGE CONTENT BELOW -->
+  <header class="site-header">
+    <div class="logo-container">
+      <a href="index.html" aria-label="Home">
+        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
+      </a>
+    </div>
+    <h1 class="site-title">Origins Rebirth</h1>
+    <nav class="nav-links" aria-label="Main Navigation">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="about.html">About ▾</a>
+        <div class="dropdown-content">
+          <a href="wiki.html">Wiki</a>
+          <a href="origins.html" class="dropbtn active">Origins</a>
+          <a href="map.html">Map</a>
+        </div>
+      </div>
+      <a href="rules.html">Rules</a>
+      <a href="contact.html">Join</a>
+    </nav>
+  </header>
 
 <main class="container">
   <section class="grid" id="grid">
@@ -868,5 +898,37 @@
   update();
 </script>
 
+  <!-- ✦ FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>About</h4>
+        <p>Origins Rebirth is a custom Minecraft server blending the best of Java and Bedrock gameplay with powerful Origins and plugins.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="origins.html">Origins</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="contact.html">Join</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <ul class="social-links">
+          <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+          <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+          <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
+
