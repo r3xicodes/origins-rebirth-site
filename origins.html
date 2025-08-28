@@ -1,394 +1,872 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Origins - Origins Rebirth</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="assets/logo.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    body {
-      background: #111;
-      color: #eee;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0;
-    }
-    header.site-header, footer.site-footer {
-      background: rgba(20, 20, 20, 0.85);
-      padding: 1rem 2rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    header.site-header .logo-container img {
-      height: 40px;
-      vertical-align: middle;
-    }
-    header.site-header .site-title {
-      display: inline-block;
-      margin-left: 10px;
-      font-weight: 700;
-      font-size: 1.6rem;
-      vertical-align: middle;
-      color: #aaffee;
-    }
-    nav.nav-links a {
-      color: #aaffee;
-      text-decoration: none;
-      margin: 0 0.8rem;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    nav.nav-links a:hover,
-    nav.nav-links a.active {
-      color: #55ddaa;
-    }
-    main.container {
-      max-width: 1200px;
-      margin: 2rem auto 4rem;
-      padding: 0 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
-    }
-    .origin-card {
-      background: rgba(255 255 255 / 0.07);
-      border-radius: 12px;
-      padding: 1.6rem;
-      box-shadow: 0 0 12px rgba(0, 150, 150, 0.25);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .origin-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 20px #ffffff;
-    }
-    /* Unique background patterns by origin */
-    .origin-alchemist {
-      background-image: repeating-radial-gradient(circle at top left, #674272 0 10px, transparent 10px 20px);
-    }
-    .origin-arachnid {
-      background-image: repeating-linear-gradient(45deg, #664e27 0 5px, #3a2a11 5px 10px);
-    }
-    .origin-bee {
-      background-image: repeating-linear-gradient(60deg, #f9d71c 0 10px, #b58f00 10px 20px);
-    }
-    .origin-chicken {
-      background-image: repeating-radial-gradient(circle at center, #f4e7cd 0 12px, #d1c3a7 12px 24px);
-    }
-    .origin-enderian {
-      background-image: repeating-linear-gradient(90deg, #3a3f61 0 8px, #1a1d33 8px 16px);
-    }
-    .origin-fairy {
-      background-image: repeating-radial-gradient(circle at bottom right, #bb8fd6 0 10px, transparent 10px 20px);
-    }
-    .origin-giant {
-      background-image: repeating-linear-gradient(135deg, #5a5a5a 0 15px, #333 15px 30px);
-    }
-    .origin-human {
-      background-image: repeating-linear-gradient(0deg, #606060 0 10px, #444 10px 20px);
-    }
-    .origin-huntsman {
-      background-image: repeating-linear-gradient(45deg, #4b5d42 0 10px, #2e3b2a 10px 20px);
-    }
-    .origin-inchling {
-      background-image: repeating-radial-gradient(circle at center, #a1d2e6 0 6px, transparent 6px 12px);
-    }
-    .origin-merling {
-      background-image: repeating-linear-gradient(60deg, #3f7a9b 0 10px, #1a4151 10px 20px);
-    }
-    .origin-pawsworn {
-      background-image: repeating-linear-gradient(30deg, #7a5a3a 0 10px, #4d3a22 10px 20px);
-    }
-    .origin-phytokin {
-      background-image: repeating-radial-gradient(circle at top right, #4a774a 0 12px, transparent 12px 24px);
-    }
-    .origin-phantom {
-      background-image: repeating-linear-gradient(0deg, #5a5874 0 10px, #3a394e 10px 20px);
-    }
-    .origin-shulk {
-      background-image: repeating-linear-gradient(120deg, #4677a9 0 10px, #2a4869 10px 20px);
-    }
-    .origin-werewolf {
-      background-image: repeating-linear-gradient(75deg, #6a3f3f 0 10px, #3a1f1f 10px 20px);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Origins — Cards (Selected)</title>
+<style>
+  :root{
+    --bg: #0b0f14;
+    --panel: #10161d;
+    --panel-2:#0d1319;
+    --card:#121a22;
+    --muted:#9fb3c8;
+    --text:#e8f0f7;
+    --accent:#5dd6ff;
+    --accent-2:#9effa8;
+    --bad:#ff8b8b;
+    --good:#a8ffa8;
+    --border:#1f2a35;
+    --chip:#17222d;
+    --chip-text:#bcd0e5;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; background:linear-gradient(180deg,var(--bg),#0c141c); color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif}
+  header{
+    position:sticky; top:0; z-index:5;
+    background: linear-gradient(180deg, rgba(12,20,28,.98), rgba(12,20,28,.86));
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .container{max-width:1200px; margin:0 auto; padding:1rem}
+  h1{font-size:1.6rem; margin:0 0 .5rem}
+  .sub{color:var(--muted); margin:.25rem 0 1rem}
 
-    .origin-card h2 {
-      margin-top: 0;
-      color: #000000;
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-    }
-    .origin-summary {
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      color: #b47eff;
-    }
-    .stats-section {
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-      max-height: 7.5rem;
-      overflow-y: auto;
-      color: #b47eff;
-      background: rgba(0,0,0,0.15);
-      border-radius: 6px;
-      padding: 0.6rem;
-    }
-    .abilities {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-    }
-    .ability-icon {
-      cursor: pointer;
-      position: relative;
-      color: #ffffff;
-      font-size: 1.4rem;
-      filter: drop-shadow(0 0 2px #ffffff);
-    }
-    /* Tooltip styling */
-    .ability-icon:hover .tooltip,
-    .ability-icon:focus .tooltip {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .tooltip {
-      position: absolute;
-      bottom: 120%;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: rgba(50, 50, 50, 0.9);
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      color: #eee;
-      font-size: 0.85rem;
-      line-height: 1.2;
-      white-space: pre-line;
-      pointer-events: none;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.2s ease;
-      width: 260px;
-      z-index: 20;
-      box-shadow: 0 0 8px rgba(224, 224, 224, 0.4);
-    }
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      main.container {
-        grid-template-columns: 1fr;
-        margin: 1rem;
-      }
-    }
-  </style>
+  /* Search */
+  .toolbar{display:grid; grid-template-columns:1fr auto; gap:.75rem; align-items:center}
+  .search{
+    display:flex; gap:.5rem; align-items:center; padding:.65rem .8rem; border:1px solid var(--border);
+    background:var(--panel); border-radius:.75rem;
+  }
+  .search input{
+    flex:1; background:transparent; border:0; color:var(--text); outline:none; font-size:.95rem;
+  }
+  .pill{padding:.45rem .6rem; background:var(--chip); color:var(--chip-text); border:1px solid var(--border); border-radius:999px; font-size:.8rem}
+  .count{opacity:.8; font-size:.9rem}
+
+  /* Grid */
+  .grid{
+    display:grid; gap:1rem; margin:1rem 0 2rem;
+    grid-template-columns: repeat( auto-fill, minmax(290px, 1fr) );
+  }
+
+  /* Card */
+  .origin-card{
+    background: radial-gradient(1200px 300px at 0% 0%, rgba(93,214,255,.06), transparent 40%),
+                var(--card);
+    border:1px solid var(--border);
+    border-radius:1rem; padding:1rem; display:flex; flex-direction:column; gap:.75rem;
+    transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,.25);
+  }
+  .origin-card:hover{ transform: translateY(-2px); border-color:#244255; box-shadow: 0 10px 20px rgba(0,0,0,.3) }
+
+  .topline{display:flex; gap:.5rem; align-items:center; justify-content:space-between}
+  .name{font-weight:700; font-size:1.15rem; letter-spacing:.2px}
+  .difficulty{font-weight:700; font-size:.8rem; background:#112533; border:1px solid var(--border); padding:.35rem .55rem; border-radius:.5rem; color:var(--accent)}
+  .flavor{color:var(--muted); font-size:.95rem; margin:.1rem 0 .25rem}
+
+  .chips{display:flex; flex-wrap:wrap; gap:.35rem}
+  .chip{background:var(--chip); border:1px solid var(--border); color:var(--chip-text); padding:.28rem .5rem; border-radius:.5rem; font-size:.75rem}
+
+  details{
+    border:1px solid var(--border); border-radius:.6rem; overflow:hidden; background:var(--panel-2)
+  }
+  summary{
+    list-style:none; cursor:pointer; padding:.65rem .8rem; position:relative; font-weight:600; letter-spacing:.2px;
+    display:flex; align-items:center; gap:.5rem; background:linear-gradient(180deg,#0f1821,#0e1620);
+  }
+  summary::-webkit-details-marker{display:none}
+  details[open] summary{border-bottom:1px solid var(--border)}
+  .content{padding:.75rem .9rem; display:grid; gap:.35rem; font-size:.93rem}
+  .dim{color:var(--muted)}
+  .note{font-size:.8rem; color:var(--muted)}
+
+  ul.clean {margin:.25rem 0 .25rem 1rem}
+  ul.clean li{margin:.15rem 0}
+
+  .badge{display:inline-block; font-size:.72rem; padding:.2rem .45rem; border-radius:.4rem; border:1px solid var(--border); background:#0f1a22; color:#a6c0d8}
+  .coming{color:#ffd18f}
+  .passive{display:flex; gap:.5rem; align-items:flex-start}
+  .passive b{white-space:nowrap}
+
+  /* Color accents per origin (subtle) */
+  .origin-alchemist{background: radial-gradient(1000px 250px at 0% 0%, rgba(119,221,255,.06), transparent 40%), var(--card)}
+  .origin-arachnid{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,198,93,.06), transparent 40%), var(--card)}
+  .origin-bee{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,240,93,.06), transparent 40%), var(--card)}
+  .origin-blazeborn{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,121,79,.08), transparent 40%), var(--card)}
+  .origin-chicken{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,255,255,.05), transparent 40%), var(--card)}
+  .origin-enderian{background: radial-gradient(1000px 250px at 0% 0%, rgba(158,114,255,.08), transparent 40%), var(--card)}
+  .origin-fairy{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,179,248,.08), transparent 40%), var(--card)}
+  .origin-giant{background: radial-gradient(1000px 250px at 0% 0%, rgba(146,221,173,.08), transparent 40%), var(--card)}
+  .origin-human{background: radial-gradient(1000px 250px at 0% 0%, rgba(192,214,255,.06), transparent 40%), var(--card)}
+  .origin-huntsman{background: radial-gradient(1000px 250px at 0% 0%, rgba(148,207,255,.07), transparent 40%), var(--card)}
+  .origin-inchling{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,214,151,.08), transparent 40%), var(--card)}
+  .origin-merling{background: radial-gradient(1000px 250px at 0% 0%, rgba(137,224,255,.09), transparent 40%), var(--card)}
+  .origin-pawsworn{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,161,144,.08), transparent 40%), var(--card)}
+  .origin-phytokin{background: radial-gradient(1000px 250px at 0% 0%, rgba(161,255,176,.08), transparent 40%), var(--card)}
+  .origin-phantom{background: radial-gradient(1000px 250px at 0% 0%, rgba(160,208,255,.07), transparent 40%), var(--card)}
+  .origin-shulk{background: radial-gradient(1000px 250px at 0% 0%, rgba(255,167,137,.08), transparent 40%), var(--card)}
+  .origin-werewolf{background: radial-gradient(1000px 250px at 0% 0%, rgba(176,196,255,.07), transparent 40%), var(--card)}
+
+  /* Footer tiny */
+  footer{color:var(--muted); font-size:.85rem; border-top:1px solid var(--border); padding:1rem}
+</style>
 </head>
 <body>
-  <!-- ✦ BACKGROUND SLIDER -->
-  <div class="background-carousel">
-    <div class="slide active" style="background-image: url('assets/bg1.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg2.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg3.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg4.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg5.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg6.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg7.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg8.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg9.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg10.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg11.jpg');"></div>
-    <div class="slide" style="background-image: url('assets/bg12.jpg');"></div>  
-    <div class="slide" style="background-image: url('assets/bg13.jpg');"></div>      
+
+<header>
+  <div class="container">
+    <h1>Origins — Selected Cards</h1>
+    <p class="sub">Only the entries you provided, organized into clean cards with expand/collapse sections.</p>
+    <div class="toolbar">
+      <div class="search" role="search">
+        <span aria-hidden="true">🔎</span>
+        <input id="search" placeholder="Search origins, abilities, or stats…" autocomplete="off" />
+      </div>
+      <span class="count" id="count"></span>
+    </div>
   </div>
-  <div class="background-overlay"></div>
-  <!-- ✦ PAGE CONTENT BELOW -->
-  <header class="site-header">
-    <div class="logo-container">
-      <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
-      </a>
-    </div>
-    <h1 class="site-title">Origins Rebirth</h1>
-    <nav class="nav-links" aria-label="Main Navigation">
-      <a href="index.html">Home</a>
-      <div class="dropdown">
-        <a href="about.html" class="dropbtn">About ▾</a>
-        <div class="dropdown-content">
-          <a href="wiki.html">Wiki</a>
-          <a href="origins.html" class="active">Origins</a>
-          <a href="map.html">Map</a>
-        </div>
-      </div>
-      <a href="rules.html">Rules</a>
-      <a href="contact.html">Join</a>
-    </nav>
-  </header>
+</header>
 
-  <main class="container" role="main" aria-label="Origins list">
+<main class="container">
+  <section class="grid" id="grid">
 
-    <!-- Example origin card for Alchemist -->
-    <article class="origin-card origin-alchemist" tabindex="0" aria-labelledby="alchemist-title" role="region">
-      <h2 id="alchemist-title">Alchemist</h2>
-      <p class="origin-summary">
-        Child of a village Librarian and witch, specializing in enchanting, potions, and explosives. Difficulty: 4.
-      </p>
-      <div class="stats-section" aria-label="Alchemist stats summary">
-        <strong>Mobility:</strong> Speed 105% (Sneak 30%), Jump 100%, Luck 0, Size 100%<br />
-        <strong>Damage Taken:</strong> Melee 120%, Projectiles 120%, Explosion 80%, Magic 80%<br />
-        <strong>Health:</strong> 18.0
+    <!-- === ALCHEMIST === -->
+    <article class="origin-card origin-alchemist" data-origin="alchemist difficulty 4 potions explosives enchanting xp arcane analysis catalyst shield" tabindex="0" aria-labelledby="alchemist-title">
+      <div class="topline">
+        <div class="name" id="alchemist-title">Alchemist</div>
+        <span class="difficulty">Difficulty 4</span>
       </div>
-      <div class="abilities" aria-label="Alchemist abilities">
-        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-primary-desc" role="button" aria-label="Primary Ability: Arcane Analysis">
-          <i class="fa-solid fa-flask-vial"></i>
-          <div class="tooltip" id="alchemist-primary-desc">
-            <strong>Arcane Analysis (30s)</strong><br />
-            Gain experience and change your current enchanting table rolls.<br />
-            Activation: Use primary ability caster or key.
-          </div>
-        </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-secondary-desc" role="button" aria-label="Secondary Ability: Catalyst">
-          <i class="fa-solid fa-bottle-droplet"></i>
-          <div class="tooltip" id="alchemist-secondary-desc">
-            <strong>Catalyst</strong><br />
-            Modifies potion effects depending on catalyst type.<br />
-            Activation: Use secondary ability caster or key.
-          </div>
-        </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="alchemist-crouch-desc" role="button" aria-label="Crouch Ability: Arcane Shield">
-          <i class="fa-solid fa-shield-halved"></i>
-          <div class="tooltip" id="alchemist-crouch-desc">
-            <strong>Arcane Shield</strong><br />
-            Generates shield absorbing damage at experience cost.<br />
-            Passive perks include potion throwing range and power boosts.
-          </div>
-        </div>
+      <p class="flavor">The child of a village Librarian and a witch. Specializes in enchanting potions, and explosives.</p>
+      <div class="chips">
+        <span class="chip">Health 18.0</span>
+        <span class="chip">Armor 0.0</span>
+        <span class="chip">Speed 105%</span>
+        <span class="chip">Jump 100%</span>
+        <span class="chip">Size 100%</span>
       </div>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 105% (Sneaking: 30%) • Jump Height: 100% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 &nbsp;•&nbsp; <b>Size:</b> 100% &nbsp;•&nbsp; <b>Metabolic Adjustment:</b> 0.0</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 100%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 70%</div>
+          <div><b>Health:</b> 18.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 1%</div>
+          <div><b>Damage Taken:</b> Melee 120% • Projectiles 120% • Fire 100% • Explosion 80% • Magic 80% • Water 100% • Fall 100% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>Primary — Arcane Analysis (30s):</b> Gain expierence and change your current enchanting table rolls.</div>
+          <div class="dim">ACTIVATION: Use a primary ability caster, swap hands (F, Java), perform an emote (Bedrock), or type /pa or /a1</div>
+          <div><b>Secondary — Catalyst:</b> Received potion effects are modified by your catalyst.</div>
+          <ul class="clean">
+            <li>Glowstone — Stronger effects</li>
+            <li>Redstone — longer effect duration</li>
+            <li>Spider Eye — All effects are positive but major reduction in duration</li>
+          </ul>
+          <div class="dim">ACTIVATION: Use a secondary ability caster, swap hands while crouched (F + Shift, Java), crouched emote (Bedrock), or /sa or /a2</div>
+          <div><b>Crouch Ability — Arcane Shield:</b> Can generate a shield to absorb damage at the cost of expierence.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Passives</summary>
+        <div class="content">
+          <div class="passive"><b>Romeo &amp; Juliet:</b> Villagers will not trade with you but pillagers still attack you.</div>
+          <div class="passive"><b>Alchemical Elixir:</b>
+            <div>
+              You can throw potions much farther.<br>
+              Splash potions are more effective.<br>
+              Lingering potions are much bigger and last longer.<br>
+              Potion arrows now leave lingering puddles of their effects.
+            </div>
+          </div>
+          <div class="passive"><b>Brains Over Bronze:</b> You struggle to pull back your bow and you are less effective in combat.</div>
+          <div class="passive"><b>Alkahest Explosives:</b> Crossbow Fireworks are much stronger but travel much slower.</div>
+          <div class="passive"><b>Boon of Wisdom:</b> You have a chance to keep expierence when enchanting and using anvils. Chance to receive 2xp when you keep your expierence on death.</div>
+        </div>
+      </details>
     </article>
 
-    <!-- Add more origin cards with summarized info and unique classes for background -->
+    <!-- === ARACHNID === -->
+    <article class="origin-card origin-arachnid" data-origin="arachnid difficulty 2 spider climb nocturnal chitin architect meat-only" tabindex="0" aria-labelledby="arachnid-title">
+      <div class="topline">
+        <div class="name" id="arachnid-title">Arachnid</div>
+        <span class="difficulty">Difficulty 2</span>
+      </div>
+      <p class="flavor">8 legs, 8 eyes, 8x the fun — <b>WIP</b> (partly implemented).</p>
 
-    <!-- Arachnid -->
-    <article class="origin-card origin-arachnid" tabindex="0" aria-labelledby="arachnid-title" role="region">
-      <h2 id="arachnid-title">Arachnid</h2>
-      <p class="origin-summary">8 legs and eyes, a crawler specialized in climbing and combat. Difficulty: 2.</p>
-      <div class="stats-section" aria-label="Arachnid stats summary">
-        <strong>Mobility:</strong> Speed 95% (Sneak 70%), Jump 125%, Luck 0, Size 100%<br />
-        <strong>Damage Taken:</strong> Melee 85%, Projectiles 75%, Fire 133%, Explosion 85%<br />
-        <strong>Health:</strong> 18.0
-      </div>
-      <div class="abilities" aria-label="Arachnid abilities">
-        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-secondary-desc" role="button" aria-label="Secondary Ability: Toggle Climb">
-          <i class="fa-solid fa-spider"></i>
-          <div class="tooltip" id="arachnid-secondary-desc">
-            <strong>Toggle Climb</strong><br />
-            Allows climbing on walls.<br />
-            Activation: Use secondary ability key.
-          </div>
+      <details open>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 95% (Sneaking: 70%) • Jump Height: 125% (Gravity: 95%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 100% • <b>Metabolic Adjustment:</b> -0.001</div>
+          <div><b>Mining Capability:</b> Base Speed: 114% • Tool Bonus: 0.2 • Water Efficiency: 50%</div>
+          <div><b>Reach:</b> Building: 300% • Interact: 150%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 90% • Multiplier: 80%</div>
+          <div><b>Health:</b> 18.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 2.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: true • Bane Of Arthropods: false</div>
+          <div><b>Dodge Chance:</b> 2%</div>
+          <div><b>Damage Taken:</b> Melee 85% • Projectiles 75% • Fire 133% • Explosion 85% • Magic 95% • Water 110% • Fall 80% (Fall Height: 8.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
         </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive1-desc" role="button" aria-label="Passive Ability: Predator">
-          <i class="fa-solid fa-bone"></i>
-          <div class="tooltip" id="arachnid-passive1-desc">
-            <strong>Predator</strong><br />
-            Eats only meat.
-          </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>No Primary Ability</b></div>
+          <div><b>Secondary — Toggle Climb:</b> You can toggle climbing on walls.</div>
+          <div class="dim">ACTIVATION: Secondary ability caster • Swap hands while crouched (F + Shift, Java) • Crouched emote (Bedrock) • /sa or /a2</div>
         </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive2-desc" role="button" aria-label="Passive Ability: Nocturnal">
-          <i class="fa-solid fa-moon"></i>
-          <div class="tooltip" id="arachnid-passive2-desc">
-            <strong>Nocturnal</strong><br />
-            Gains buffs based on moon cycle.
-          </div>
+      </details>
+
+      <details>
+        <summary>Passives</summary>
+        <div class="content">
+          <div class="passive"><b>Predator:</b> You only eat meat.</div>
+          <div class="passive"><b>Nocturnal:</b> You have a chance to get a random buff based upon the moon cycle.</div>
+          <div class="passive"><b>Eighted Armed Architect:</b> You have increased combat range and extremely increased build range.</div>
+          <div class="passive"><b>Tough Chitin:</b> You have resistance Chitin but that does not stop them from trying to burn you with fire.</div>
         </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="arachnid-passive3-desc" role="button" aria-label="Passive Ability: Eighted Armed Architect">
-          <i class="fa-solid fa-person-digging"></i>
-          <div class="tooltip" id="arachnid-passive3-desc">
-            <strong>Eighted Armed Architect</strong><br />
-            Increased combat and build range.
-          </div>
-        </div>
-      </div>
+      </details>
     </article>
 
-    <!-- Bee -->
-    <article class="origin-card origin-bee" tabindex="0" aria-labelledby="bee-title" role="region">
-      <h2 id="bee-title">Bee</h2>
-      <p class="origin-summary">Buzziest guy around, loves honey and friends with Phytokins. Difficulty: 2.</p>
-      <div class="stats-section" aria-label="Bee stats summary">
-        <strong>Mobility:</strong> Speed 100% (Sneak 70%), Jump 80%, Luck 0, Size 50%<br />
-        <strong>Damage Taken:</strong> Melee 100%, Projectiles 110%, Magic 110%, Fall 50%<br />
-        <strong>Health:</strong> 14.0
+    <!-- === BEE === -->
+    <article class="origin-card origin-bee" data-origin="bee difficulty 2 honey pollinate levitate final sting phytokin" tabindex="0" aria-labelledby="bee-title">
+      <div class="topline">
+        <div class="name" id="bee-title">Bee</div>
+        <span class="difficulty">Difficulty 2</span>
       </div>
-      <div class="abilities" aria-label="Bee abilities">
-        <div class="ability-icon" tabindex="0" aria-describedby="bee-primary-desc" role="button" aria-label="Primary Ability: Pollinate">
-          <i class="fa-solid fa-poll"></i>
-          <div class="tooltip" id="bee-primary-desc">
-            <strong>Pollinate (60s)</strong><br />
-            Bonemeals saplings, harvests honey and flowers.<br />
-            Grants temporary bonus health to Phytokins.
-          </div>
-        </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="bee-secondary-desc" role="button" aria-label="Secondary Ability: Final Sting">
-          <i class="fa-solid fa-skull-crossbones"></i>
-          <div class="tooltip" id="bee-secondary-desc">
-            <strong>Final Sting (Toggle)</strong><br />
-            1% chance to deal 10x damage at cost of half heart.
-          </div>
-        </div>
-        <div class="ability-icon" tabindex="0" aria-describedby="bee-crouch-desc" role="button" aria-label="Crouch Ability: Buzz Away">
-          <i class="fa-solid fa-wind"></i>
-          <div class="tooltip" id="bee-crouch-desc">
-            <strong>Buzz Away</strong><br />
-            Levitate when crouching; faster movement and lower gravity.
-          </div>
-        </div>
+      <p class="flavor">The buzziest guy youll ever met. Friends with Phytokins and loves honey.</p>
+      <div class="chips">
+        <span class="chip">Health 14.0</span><span class="chip">Size 50%</span><span class="chip">Speed 100%</span>
       </div>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 100% (Sneaking: 70%) • Jump Height: 80% (Gravity: 40%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 50% • <b>Metabolic Adjustment:</b> 0.0</div>
+          <div><b>Mining Capability:</b> Base Speed: 90% • Tool Bonus: 0.0 • Water Efficiency: 10%</div>
+          <div><b>Reach:</b> Building: 90% • Interact: 90%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 85%</div>
+          <div><b>Health:</b> 14.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: true • Bane Of Arthropods: false</div>
+          <div><b>Dodge Chance:</b> 3%</div>
+          <div><b>Damage Taken:</b> Melee 100% • Projectiles 110% • Fire 100% • Explosion 100% • Magic 110% • Water 100% • Fall 50% (Fall Height: 10.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>Primary — Pollinate (60s):</b> Bonemeals saplings and has a chance to harvest honey, honeycombs, and flowers from nearby flowers. Grants Phytokins temporary bonus health.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote (Bedrock) • /pa or /a1</div>
+          <div><b>Secondary — Final Sting (Toggle):</b> You have a 1% chance to deal 10x damage. This will take you down to half a heart.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div><b>Crouch Ability — Buzz Away:</b> Crouching will make you levitate. You can move faster with swiftsneak. You also have lower gravity. Cannot fly while wet.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Passives</summary>
+        <div class="content">
+          <div class="passive"><b>The Hivemind:</b> You gain regeneration while near other Bees, and saturation while near Phytokins.</div>
+          <div class="passive"><b>The BEEst life:</b> You only have 6 hearts, and can only eat honey.</div>
+        </div>
+      </details>
     </article>
 
-    <!-- More origins can be added here similarly -->
-
-  </main>
-
-  <footer class="site-footer">
-    <p style="text-align:center; font-size: 0.85rem; color: #666;">&copy; 2025 Origins Rebirth. All rights reserved.</p>
-  </footer>
-</body>
-</html>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-column">
-        <h4>About</h4>
-        <p>Origins Rebirth is a custom Minecraft server blending Java & Bedrock gameplay with powerful Origins and plugins.</p>
+    <!-- === BLAZEBORN (Coming Soon) === -->
+    <article class="origin-card origin-blazeborn" data-origin="blazeborn coming soon" aria-labelledby="blazeborn-title">
+      <div class="topline">
+        <div class="name" id="blazeborn-title">Blazeborn</div>
+        <span class="badge coming">Coming Soon</span>
       </div>
-      <div class="footer-column">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="origins.html">Origins</a></li>
-          <li><a href="rules.html">Rules</a></li>
-          <li><a href="contact.html">Join</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Connect</h4>
-        <ul class="social-links">
-          <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
-          <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
-          <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
-    </div>
-  </footer>
+      <p class="flavor">General Stats — Coming Soon!</p>
+      <details>
+        <summary>Mobility / Abilities</summary>
+        <div class="content">
+          <div>N/A</div>
+        </div>
+      </details>
+    </article>
 
-  <script src="js/script.js"></script>
+    <!-- === CHICKEN (Lite) === -->
+    <article class="origin-card origin-chicken" data-origin="chicken lite difficulty 1 lucky eggs flutter herbivore fast agile" aria-labelledby="chicken-title">
+      <div class="topline">
+        <div class="name" id="chicken-title">Chicken (Lite)</div>
+        <span class="difficulty">Difficulty 1</span>
+      </div>
+      <p class="flavor">A fast herbivore that plays with luck.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 150% (Sneaking: 33%) • Jump Height: 100% (Gravity: 95%)</div>
+          <div><b>Luck:</b> 3.0 • <b>Size:</b> 50% • <b>Metabolic Adjustment:</b> -0.008</div>
+          <div><b>Mining Capability:</b> Base Speed: 90% • Tool Bonus: 0.0 • Water Efficiency: 33%</div>
+          <div><b>Reach:</b> Building: 75% • Interact: 75%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 90% • Multiplier: 90%</div>
+          <div><b>Health:</b> 18.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 10%</div>
+          <div><b>Damage Taken:</b> Melee 90% • Projectiles 90% • Fire 90% • Explosion 110% • Magic 110% • Water 90% • Fall 50% (Fall Height: 5.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>Primary — Lucky Eggs (90s):</b> Spawn a random mob. Be careful, it may be something dangerous.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote (Bedrock) • /pa or /a1</div>
+          <div><b>No Secondary Ability</b></div>
+          <div><b>Crouch Ability — Flutter:</b> Descend slower by fluttering your wings.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Passives</summary>
+        <div class="content">
+          <div class="passive"><b>Grassfeeder:</b> Can only eat plants but has an efficent metabolism.</div>
+          <div class="passive"><b>Fast and Agile:</b> You are small, fast and agile.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === ENDERIAN === -->
+    <article class="origin-card origin-enderian" data-origin="enderian difficulty 3 blink teleport distortion water-weak" aria-labelledby="enderian-title">
+      <div class="topline">
+        <div class="name" id="enderian-title">Enderian</div>
+        <span class="difficulty">Difficulty 3</span>
+      </div>
+      <p class="flavor">Half man, half enderman, 100% hatred for water. Good thing you can teleport.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 103% (Sneaking: 30%) • Jump Height: 110% (Gravity: 95%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 150% • <b>Metabolic Adjustment:</b> -0.002</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 133% • Interact: 133%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 100%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 100% • Projectiles 100% • Fire 100% • Explosion 100% • Magic 100% • Water 150% • Fall 0% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>Primary — Blink:</b> Teleports directly where you are looking.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Distortion Dodging:</b> Teleports when taking damage. Has a chance to dodge an attack when teleporting.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === FAIRY === -->
+    <article class="origin-card origin-fairy" data-origin="fairy difficulty 4 pacifist builder energize flight small" aria-labelledby="fairy-title">
+      <div class="topline">
+        <div class="name" id="fairy-title">Fairy</div>
+        <span class="difficulty">Difficulty 4</span>
+      </div>
+      <p class="flavor">A pacifist small creature that is an expert at building.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 90% (Sneaking: 50%) • Jump Height: 80% (Gravity: 50%)</div>
+          <div><b>Luck:</b> 1.0 • <b>Size:</b> 30% • <b>Metabolic Adjustment:</b> -0.006</div>
+          <div><b>Mining Capability:</b> Base Speed: 110% • Tool Bonus: 0.0 • Water Efficiency: 33%</div>
+          <div><b>Reach:</b> Building: 70% • Interact: 70%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 100%</div>
+          <div><b>Health:</b> 8.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 2.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 15%</div>
+          <div><b>Damage Taken:</b> Melee 50% • Projectiles 110% • Fire 100% • Explosion 100% • Magic 50% • Water 75% • Fall 100% (Fall Height: 10.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Energize (90s):</b> Energizes nearby players with energy to make them feel more refreshed.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>No Secondary Ability</b></div>
+          <div class="passive"><b>Small Wings:</b> Can fly with creative flight.</div>
+          <div class="passive"><b>Pacifist Mindset:</b> Fairies do not like violence and avoid combat as much as possible.</div>
+          <div class="passive"><b>Small:</b> Very small and has little health.</div>
+          <div class="passive"><b>Sugary Sweet:</b> Can only eat sweet foods but gets small boost of energy when eating sweets.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === GIANT === -->
+    <article class="origin-card origin-giant" data-origin="giant difficulty 4 roar enlarge big boned form" aria-labelledby="giant-title">
+      <div class="topline">
+        <div class="name" id="giant-title">Giant</div>
+        <span class="difficulty">Difficulty 4</span>
+      </div>
+      <p class="flavor">A big sturdy human.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 133% (Sneaking: 25%) • Jump Height: 200% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 200% • <b>Metabolic Adjustment:</b> 0.01</div>
+          <div><b>Mining Capability:</b> Base Speed: 133% • Tool Bonus: 0.05 • Water Efficiency: 25%</div>
+          <div><b>Reach:</b> Building: 250% • Interact: 250%</div>
+          <div><b>Melee Damage:</b> Base: 2.0 • Speed: 50% • Multiplier: 114%</div>
+          <div><b>Health:</b> 30.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 85% • Projectiles 75% • Fire 110% • Explosion 110% • Magic 100% • Water 105% • Fall 125% (Fall Height: 12.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passive</summary>
+        <div class="content">
+          <div><b>Primary — Roar (40s):</b> Stun enemies with your roar and embolden your allies.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Enlarge (180s):</b> Grows larger and stronger but has a long cooldown between growing and ungrowing.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div class="passive"><b>Big Boned:</b> You have more health, strength and reach.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Additional Form Stats — Giant Form</summary>
+        <div class="content">
+          <div><b>Giant Mobility:</b> Speed: 225% (Sneaking: 25%) • Jump Height: 420% (Gravity: 200%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 400% • <b>Metabolic Adjustment:</b> 0.02</div>
+          <div><b>Mining Capability:</b> Base Speed: 300% • Tool Bonus: 0.06 • Water Efficiency: 33%</div>
+          <div><b>Reach:</b> Building: 400% • Interact: 350%</div>
+          <div><b>Melee Damage:</b> Base: 3.0 • Speed: 40% • Multiplier: 150%</div>
+          <div><b>Health:</b> 40.0 • <b>Armor:</b> 2.0 • <b>Toughness:</b> 1.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 60% • Projectiles 45% • Fire 125% • Explosion 125% • Magic 95% • Water 105% • Fall 125% (Fall Height: 20.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === HUMAN === -->
+    <article class="origin-card origin-human" data-origin="human difficulty 1 mundane" aria-labelledby="human-title">
+      <div class="topline">
+        <div class="name" id="human-title">Human</div>
+        <span class="difficulty">Difficulty 1</span>
+      </div>
+      <p class="flavor">The OG — Steve from minecraft.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 100% (Sneaking: 30%) • Jump Height: 100% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 100% • <b>Metabolic Adjustment:</b> 0.0</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 100%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 100%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 1%</div>
+          <div><b>Damage Taken:</b> Melee 100% • Projectiles 100% • Fire 100% • Explosion 100% • Magic 100% • Water 100% • Fall 100% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passive</summary>
+        <div class="content">
+          <div><b>No Primary Ability</b></div>
+          <div><b>No Secondary Ability</b></div>
+          <div class="passive"><b>Mundane:</b> No special abilities — just good ol human.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === HUNTSMAN === -->
+    <article class="origin-card origin-huntsman" data-origin="huntsman difficulty 3 ranger precision change tip stalk marksman" aria-labelledby="huntsman-title">
+      <div class="topline">
+        <div class="name" id="huntsman-title">Huntsman</div>
+        <span class="difficulty">Difficulty 3</span>
+      </div>
+      <p class="flavor">A rougeish ranger who makes up for their bad sword skills with their markmanship.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 90% (Sneaking: 25%) • Jump Height: 100% (Gravity: 95%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 100% • <b>Metabolic Adjustment:</b> 0.0</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 90%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 65% • Multiplier: 45%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 5%</div>
+          <div><b>Damage Taken:</b> Melee 105% • Projectiles 66% • Fire 100% • Explosion 105% • Magic 95% • Water 95% • Fall 100% (Fall Height: 5.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities</summary>
+        <div class="content">
+          <div><b>Primary — Precision (30s):</b> Turn invisible and shoot a lethal arrow.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Change Tip:</b> You swift your tip for your bow. Available tips are:</div>
+          <ul class="clean">
+            <li>Standard — a sharp tip meant to kill</li>
+            <li>Buffing — an arrow that heals the target and gives strength</li>
+            <li>Stun — an arrow that stuns enemies</li>
+          </ul>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div><b>Crouch Ability — Stalk:</b> Crouching makes you slow but invisible with safe fall.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Passives</summary>
+        <div class="content">
+          <div class="passive"><b>Explorer:</b> You are slowed down less on rough terrain and make less sound when moving. You can also sprint quickly when in danger.</div>
+          <div class="passive"><b>Marksman:</b> Crossbow will deal bonus damage against armor and your arrows are faster faster arrows.</div>
+          <div class="passive"><b>Aerial Denial:</b> Arrows do extra damage to gliding enemies.</div>
+          <div class="passive"><b>Unskilled Fighter:</b> You are bad with melee combat and deal less damage.</div>
+          <div class="passive"><b>Slow Position:</b> You are slower than normal and extra quiet around skulks but can quickly escape when in danger.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === INCHLING === -->
+    <article class="origin-card origin-inchling" data-origin="inchling difficulty 1 tiny flee nimble little hands" aria-labelledby="inchling-title">
+      <div class="topline">
+        <div class="name" id="inchling-title">Inchling</div>
+        <span class="difficulty">Difficulty 1</span>
+      </div>
+      <p class="flavor">Tiny and fragile.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 90% (Sneaking: 15%) • Jump Height: 90% (Gravity: 85%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 25% • <b>Metabolic Adjustment:</b> -0.004</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 80% • Interact: 80%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 150% • Multiplier: 33%</div>
+          <div><b>Health:</b> 12.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 20%</div>
+          <div><b>Damage Taken:</b> Melee 85% • Projectiles 85% • Fire 133% • Explosion 133% • Magic 133% • Water 100% • Fall 0% (Fall Height: 6.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Flee (8s):</b> You cannot attack, and you become smaller. You have increased jump height, speed and dodge.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>No Secondary Ability</b></div>
+          <div class="passive"><b>Tiny:</b> You're tiny! You have 6 hearts, reduced range and do less damage. You have a faster attack speed and eat less.</div>
+          <div class="passive"><b>Nimble:</b> You have increased dodge chance.</div>
+          <div class="passive"><b>Little Hands:</b> Your hands are so small your bare fist will not hurt anything.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === MERLING === -->
+    <article class="origin-card origin-merling" data-origin="merling difficulty 2 ocean hydrate swift swim mermaids grace trident" aria-labelledby="merling-title">
+      <div class="topline">
+        <div class="name" id="merling-title">Merling</div>
+        <span class="difficulty">Difficulty 2</span>
+      </div>
+      <p class="flavor">King of the ocean. Must remain hydrated.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 85% (Sneaking: 30%) • Jump Height: 100% (Gravity: 114%)</div>
+          <div><b>Luck:</b> 4.0 • <b>Size:</b> 85% • <b>Metabolic Adjustment:</b> -0.002</div>
+          <div><b>Mining Capability:</b> Base Speed: 85% • Tool Bonus: 0.0 • Water Efficiency: 250%</div>
+          <div><b>Reach:</b> Building: 85% • Interact: 85%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 80% • Multiplier: 100%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 95% • Projectiles 105% • Fire 200% • Explosion 105% • Magic 90% • Water 10% • Fall 125% (Fall Height: 8.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Swift Swim:</b> Swim extremely fast.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Mermaids Grace (Toggle):</b> Prevent sinking in water, and provide aquatic buffs to both your allies and yourself.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div class="passive"><b>Hydrophilic:</b> You need to stay wet. Water breathing and Respiration will help you stay wet longer. Fire will quickly dry you out.</div>
+          <div class="passive"><b>Sealegs:</b> You move and mine slower on land, but excel in water.</div>
+          <div class="passive"><b>Marine Combatant:</b> You deal bonus damage with tridents. You have a chance to dodge attacks and evade death while submerged.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === PAWSWORN === -->
+    <article class="origin-card origin-pawsworn" data-origin="pawsworn difficulty 1 pounce dash agile feline" aria-labelledby="pawsworn-title">
+      <div class="topline">
+        <div class="name" id="pawsworn-title">Pawsworn</div>
+        <span class="difficulty">Difficulty 1</span>
+      </div>
+      <p class="flavor">Half beast — Half man that is an expert at hunting. Embrace the wild side!</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 175% (Sneaking: 45%) • Jump Height: 200% (Gravity: 120%)</div>
+          <div><b>Luck:</b> 2.5 • <b>Size:</b> 65% • <b>Metabolic Adjustment:</b> 0.004</div>
+          <div><b>Mining Capability:</b> Base Speed: 66% • Tool Bonus: 0.0 • Water Efficiency: 10%</div>
+          <div><b>Reach:</b> Building: 85% • Interact: 85%</div>
+          <div><b>Melee Damage:</b> Base: 1.1 • Speed: 105% • Multiplier: 90%</div>
+          <div><b>Health:</b> 18.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 3%</div>
+          <div><b>Damage Taken:</b> Melee 105% • Projectiles 100% • Fire 90% • Explosion 95% • Magic 95% • Water 110% • Fall 5% (Fall Height: 8.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Pounce (30s):</b> Leap a short distance and gain a damage buff.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Dash:</b> Toggle dashing short when crouching distnaces.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div><b>Crouch Ability — Dash:</b> Dashes a short distance when crouching a short distance.</div>
+          <div class="passive"><b>Agile:</b> Take reduced fall damage. Has increase speed and jump height.</div>
+          <div class="passive"><b>Fishlicious:</b> Has increased luck with fishing.</div>
+          <div class="passive"><b>Wet Fur:</b> Felines are weaker when wet.</div>
+          <div class="passive"><b>Big Pawed:</b> Has reduced mining speed.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === PHYTOKIN [LITE] === -->
+    <article class="origin-card origin-phytokin" data-origin="phytokin lite difficulty 2 sturdy stump thistled hands thorns photosynthesis" aria-labelledby="phytokin-title">
+      <div class="topline">
+        <div class="name" id="phytokin-title">Phytokin [LITE]</div>
+        <span class="difficulty">Difficulty 2</span>
+      </div>
+      <p class="flavor">The bridge between man and tree. Guardian of the forest.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 90% (Sneaking: 30%) • Jump Height: 110% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 150% • <b>Metabolic Adjustment:</b> 0.01</div>
+          <div><b>Mining Capability:</b> Base Speed: 85% • Tool Bonus: 0.0 • Water Efficiency: 100%</div>
+          <div><b>Reach:</b> Building: 133% • Interact: 133%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 90% • Multiplier: 50%</div>
+          <div><b>Health:</b> 26.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: false • Smite: true • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 75% • Projectiles 75% • Fire 150% • Explosion 80% • Magic 75% • Water 33% • Fall 100% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>No Primary Ability</b></div>
+          <div><b>No Secondary Ability</b></div>
+          <div class="passive"><b>Sturdy Stump:</b> You are slow, tall, and strong but fear fire.</div>
+          <div class="passive"><b>Thistled Hands:</b> You attack slower and deal less damage but every attack inflicts wither, you are immune to poison and wither.</div>
+          <div class="passive"><b>Rose Among Thorns:</b> You have protective thorns that inflicts damage when attacked.</div>
+          <div class="passive"><b>Photosynthesis:</b> You gain energy from the sun but cannot eat food. Potions much be ingested by your roots.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === PHANTOM === -->
+    <article class="origin-card origin-phantom" data-origin="phantom difficulty 4 veilwalk potion possession dark refuge ethereal" aria-labelledby="phantom-title">
+      <div class="topline">
+        <div class="name" id="phantom-title">Phantom</div>
+        <span class="difficulty">Difficulty 4</span>
+      </div>
+      <p class="flavor">A lost soul, haunting the living and untethered from reality.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 70% (Sneaking: 50%) • Jump Height: 100% (Gravity: 75%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 85% • <b>Metabolic Adjustment:</b> -0.003</div>
+          <div><b>Mining Capability:</b> Base Speed: 65% • Tool Bonus: 0.0 • Water Efficiency: 33%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 100%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 80% • Multiplier: 90%</div>
+          <div><b>Health:</b> 16.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: false • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 90% • Projectiles 90% • Fire 150% • Explosion 90% • Magic 90% • Water 80% • Fall 50% (Fall Height: 14.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Veilwalk (1s):</b> Unbind yourself from the living world and walk through the veil at the cost of your food.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Potion Possession (60s):</b> Copy the potion effects of nearby players to yourself.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div class="passive"><b>Dark Refuge:</b> You are weakened by light and burn in the sun but you gain strength in the dark.</div>
+          <div class="passive"><b>Ethereal:</b> Has reduced gravity and are translucent.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === SHULK === -->
+    <article class="origin-card origin-shulk" data-origin="shulk difficulty 1 ender chest levitation bulwark inventory keep" aria-labelledby="shulk-title">
+      <div class="topline">
+        <div class="name" id="shulk-title">Shulk</div>
+        <span class="difficulty">Difficulty 1</span>
+      </div>
+      <p class="flavor">Versatile and tanky.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 70% (Sneaking: 25%) • Jump Height: 100% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 75% • <b>Metabolic Adjustment:</b> 0.006</div>
+          <div><b>Mining Capability:</b> Base Speed: 105% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 100%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 90% • Multiplier: 90%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 2.0 • <b>Toughness:</b> 1.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: true • Bane Of Arthropods: false</div>
+          <div><b>Dodge Chance:</b> 0%</div>
+          <div><b>Damage Taken:</b> Melee 70% • Projectiles 50% • Fire 50% • Explosion 50% • Magic 133% • Water 50% • Fall 100% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Ender Chest (15s):</b> Grants access to your ender chest on demand with a short cooldown.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Levitation (45s):</b> Causes nearby hostiles to levitate and allies to gain slow falling.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div class="passive"><b>Otherworldly Shell:</b> You keep your inventory on death, with the exception of experience.</div>
+          <div class="passive"><b>Bulwark:</b> You are highly resistant to most forms of damage, but are vulnerable to magic.</div>
+        </div>
+      </details>
+    </article>
+
+    <!-- === WEREWOLF === -->
+    <article class="origin-card origin-werewolf" data-origin="werewolf difficulty 3 howl transform leap sharp claws carnivore wolf form" aria-labelledby="werewolf-title">
+      <div class="topline">
+        <div class="name" id="werewolf-title">Werewolf</div>
+        <span class="difficulty">Difficulty 3</span>
+      </div>
+      <p class="flavor">Cursed with Wolfsblood. The Werewolf hides as a human but transforms with the reveal of the moon.</p>
+
+      <details>
+        <summary>General Stats</summary>
+        <div class="content">
+          <div><b>Mobility:</b> Speed: 105% (Sneaking: 30%) • Jump Height: 100% (Gravity: 100%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 100% • <b>Metabolic Adjustment:</b> 0.0</div>
+          <div><b>Mining Capability:</b> Base Speed: 100% • Tool Bonus: 0.0 • Water Efficiency: 20%</div>
+          <div><b>Reach:</b> Building: 100% • Interact: 100%</div>
+          <div><b>Melee Damage:</b> Base: 1.05 • Speed: 100% • Multiplier: 100%</div>
+          <div><b>Health:</b> 20.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: false • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 1%</div>
+          <div><b>Damage Taken:</b> Melee 90% • Projectiles 90% • Fire 90% • Explosion 90% • Magic 110% • Water 90% • Fall 100% (Fall Height: 3.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Abilities & Passives</summary>
+        <div class="content">
+          <div><b>Primary — Howl (300s):</b> Howl embracing the wolf side. As human form, summon a buffed wolf. As wolf form, empower werewolves and your pet wolves.</div>
+          <div class="dim">ACTIVATION: Primary caster • Swap hands (F) • Emote • /pa or /a1</div>
+          <div><b>Secondary — Transform (1200s):</b> Transform between human and wolf form.</div>
+          <div class="dim">ACTIVATION: Secondary caster • Swap hands while crouched (F + Shift) • Crouched emote • /sa or /a2</div>
+          <div><b>Crouch Ability — Leap:</b> When in wolf form, leap high into the air.</div>
+          <div class="passive"><b>Sharp Claws:</b> Attacking with fist deals bonus damage and scales with armor. You also deal more damage in wolf form. Claws can some restore hunger or health.</div>
+          <div class="passive"><b>Carnivore:</b> You can only eat meat.</div>
+          <div class="passive"><b>Wolfing Out:</b> When in a wolf form, you are tougher and faster but cannot use tools and are encumbered by armor.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Additional Form Stats — Wolf Form</summary>
+        <div class="content">
+          <div><b>Wolf Mobility:</b> Speed: 175% (Sneaking: 50%) • Jump Height: 200% (Gravity: 150%)</div>
+          <div><b>Luck:</b> 0.0 • <b>Size:</b> 150% • <b>Metabolic Adjustment:</b> 0.005</div>
+          <div><b>Mining Capability:</b> Base Speed: 200% • Tool Bonus: 5.0 • Water Efficiency: 75%</div>
+          <div><b>Reach:</b> Building: 175% • Interact: 175%</div>
+          <div><b>Melee Damage:</b> Base: 1.0 • Speed: 100% • Multiplier: 100%</div>
+          <div><b>Health:</b> 40.0 • <b>Armor:</b> 0.0 • <b>Toughness:</b> 0.0</div>
+          <div><b>Immunities:</b> Sharpness: true • Smite: false • Bane Of Arthropods: true</div>
+          <div><b>Dodge Chance:</b> 7%</div>
+          <div><b>Damage Taken:</b> Melee 14% • Projectiles 18% • Fire 50% • Explosion 10% • Magic 50% • Water 75% • Fall 50% (Fall Height: 6.0 blocks)</div>
+          <div class="note">Stats may change based upon gameplay conditions.</div>
+        </div>
+      </details>
+    </article>
+
+  </section>
+</main>
+
+<footer class="container">
+  Tip: Use the search box to filter by name, abilities (“teleport”, “pollinate”), or keywords (“melee 120%”, “trident”, “climb”).
+</footer>
+
+<script>
+  // Simple client-side search filter
+  const q = document.getElementById('search');
+  const grid = document.getElementById('grid');
+  const cards = Array.from(grid.querySelectorAll('.origin-card'));
+  const count = document.getElementById('count');
+
+  function update(){
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card=>{
+      const hay = (card.dataset.origin + ' ' + card.textContent).toLowerCase();
+      const match = !term || hay.includes(term);
+      card.style.display = match ? '' : 'none';
+      if(match) shown++;
+    });
+    count.textContent = shown + ' / ' + cards.length + ' shown';
+  }
+  q.addEventListener('input', update);
+  update();
+</script>
+
 </body>
 </html>
