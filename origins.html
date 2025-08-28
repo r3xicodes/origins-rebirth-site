@@ -1102,38 +1102,60 @@
 
   </section>
 </main>
-
 <script>
-const track = document.querySelector('.ticker-track');
-const tips = Array.from(track.querySelectorAll('span'));
-const speed = 2; // pixels per frame
-let currentIndex = 0;
+  // Simple client-side search filter
+  const q = document.getElementById('search');
+  const grid = document.getElementById('grid');
+  const cards = Array.from(grid.querySelectorAll('.origin-card'));
+  const count = document.getElementById('count');
 
-function animateTip() {
-  const tip = tips[currentIndex];
-  tip.style.transform = `translateX(100%)`; // start offscreen right
-  tip.style.display = 'inline-block';
-
-  let pos = tip.offsetWidth; // start at right edge
-  const frame = () => {
-    pos -= speed;
-    tip.style.transform = `translateX(${pos}px)`;
-    if (pos + tip.offsetWidth > 0) {
-      requestAnimationFrame(frame);
-    } else {
-      tip.style.display = 'none'; // hide tip when offscreen left
-      currentIndex = (currentIndex + 1) % tips.length;
-      setTimeout(animateTip, 500); // wait 0.5s before next tip
-    }
-  };
-  frame();
-}
-
-// Start ticker
-animateTip();
+  function update(){
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card=>{
+      const hay = (card.dataset.origin + ' ' + card.textContent).toLowerCase();
+      const match = !term || hay.includes(term);
+      card.style.display = match ? '' : 'none';
+      if(match) shown++;
+    });
+    count.textContent = shown + ' / ' + cards.length + ' shown';
+  }
+  q.addEventListener('input', update);
+  update();
 </script>
+<script>
+  const track = document.querySelector('.ticker-track');
+  const tips = Array.from(track.querySelectorAll('span'));
+  const containerWidth = track.parentElement.offsetWidth;
+  const speed = 2; // pixels per frame
+  let currentIndex = 0;
 
+  function animateTip() {
+    const tip = tips[currentIndex];
+    tip.style.display = 'inline-block';
+    let tipWidth = tip.offsetWidth;
+    let pos = containerWidth; // start just off the right edge
 
+    const frame = () => {
+      pos -= speed;
+      tip.style.transform = `translateX(${pos}px)`;
+      if (pos + tipWidth > 0) {
+        requestAnimationFrame(frame);
+      } else {
+        tip.style.display = 'none';
+        currentIndex = (currentIndex + 1) % tips.length;
+        setTimeout(animateTip, 500); // wait 0.5s before next tip
+      }
+    };
+    frame();
+  }
+
+  // Initialize: hide all tips first
+  tips.forEach(t => t.style.display = 'none');
+
+  // Start ticker
+  animateTip();
+</script>
 
   <!-- ✦ FOOTER -->
   <footer class="site-footer">
