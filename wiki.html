@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }   
     body {
       margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -80,12 +84,12 @@
 
     /* Main content container */
     main.container {
-      width: 100%;
-      height: calc(100vh - 70px); /* subtract header height */
-      margin: 0;
-      padding: 0;
+      flex: 1;
       display: flex;
       flex-direction: column;
+      width: 100vw; /* Full viewport width */
+      margin: 0;
+      padding: 0;
     }
 
     h1.page-title {
@@ -96,13 +100,12 @@
 
     /* Full-size iframe */
     iframe.wiki-frame {
-      flex: 1; /* fills all remaining space in container */
+      flex: 1;
       width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 0; /* optional: remove radius to fit fully */
-      background: #0b0f14;
+      display: block;
     }
-
 
     footer {
       color: #9fb3c8;
@@ -181,7 +184,7 @@
       <div class="footer-column">
         <h4>Connect</h4>
         <ul class="social-links">
-          <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+          <li><a href="https://discord.gg/uJdq9qrRSZ" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a></li>
           <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
           <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
         </ul>
