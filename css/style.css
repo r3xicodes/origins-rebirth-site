@@ -170,16 +170,56 @@ footer {
   padding: 1em;
   margin-top: 2em;
 }
-.glass-box {
-  background: rgba(39, 39, 39, 0.6); /* Darker background for better contrast */
-  backdrop-filter: blur(10px);    /* Stronger blur */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+/* Only affects homepage */
+.home-sections {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3em 1.5em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2em;
+  align-items: start;
+}
+
+.home-sections .glass-box {
+  background: rgba(39, 39, 39, 0.65); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
   padding: 2em;
-  margin-bottom: 2em;
-  color: #fff;                    /* Ensure text stays white */
-  box-shadow: 0 4px 20px rgba(39, 39, 39, 0.2); /* Slightly stronger shadow */
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.home-sections .glass-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Layering effect only on homepage */
+.home-sections .glass-box.intro {
+  transform: translateY(-40px);
+}
+.home-sections .glass-box.features {
+  transform: translateY(0);
+}
+.home-sections .glass-box.cta {
+  transform: translateY(40px);
+}
+
+/* Hover states while staggered */
+.home-sections .glass-box.intro:hover { transform: translateY(-45px); }
+.home-sections .glass-box.features:hover { transform: translateY(-5px); }
+.home-sections .glass-box.cta:hover { transform: translateY(35px); }
+
+/* Reset to normal stacking on mobile */
+@media (max-width: 768px) {
+  .home-sections .glass-box {
+    transform: translateY(0);
+  }
+}
+
 
 /* ✦ Background Carousel */
 .background-carousel {
