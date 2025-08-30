@@ -28,17 +28,21 @@
   </div>
   <div class="background-overlay"></div>
   <!-- ✦ PAGE CONTENT BELOW -->
+  <!-- ✦ HEADER -->
   <header class="site-header">
     <div class="logo-container">
-      <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
-      </a>
+      <a href="index.html"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo"></a>
     </div>
     <h1 class="site-title">Origins Rebirth</h1>
-    <nav class="nav-links" aria-label="Main Navigation">
+
+    <!-- Hamburger (only shows on mobile) -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- Nav (full horizontal on PC, dropdown on mobile) -->
+    <nav class="nav-links" id="navMenu">
       <a href="index.html" class="active">Home</a>
       <div class="dropdown">
-        <a href="about.html" class="dropbtn">About ▾</a>
+        <a href="about.html">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html">Origins</a>
@@ -119,6 +123,13 @@
     <p>&copy; 2025 Origins Rebirth. All rights reserved.</p>
   </div>
   </footer>
+
+    <!-- ✦ SCRIPT (nav toggle for mobile) -->
+  <script>
+  function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("show");
+  }
+  </script>
   <script src="js/script.js"></script>
 </body>
 </html>
