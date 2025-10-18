@@ -239,3 +239,110 @@ function initNavigation() {
   function createMenuToggle() { const btn = document.createElement('button'); btn.className = 'menu-toggle'; btn.type = 'button'; btn.setAttribute('aria-label','Open main menu'); btn.setAttribute('aria-expanded','false'); btn.innerHTML = '<span class="hamburger" aria-hidden="true"></span>'; return btn; }
   function createBackdrop() { let b = document.querySelector('.nav-backdrop'); if (!b) { b = document.createElement('div'); b.className = 'nav-backdrop'; document.body.appendChild(b); } return b; }
 }
+
+// ---------------------------
+// Debug helpers: overlay detector & tap visualizer
+// ---------------------------
+(function () {
+  try {
+    // small helper to create highlight overlays for elements that overlap the header
+    function detectOverlays() {
+      const header = document.querySelector('.site-header');
+      if (!header) { console.warn('detectOverlays: .site-header not found'); return; }
+      const hdr = header.getBoundingClientRect();
+      const excludes = ['.nav-links', '.nav-backdrop', '.menu-toggle', '#js-debug-panel', '.debug-toggle', '.overlay-highlight', '.tap-indicator'];
+      const els = Array.from(document.body.querySelectorAll('*')).filter(el => {
+        try {
+          if (!el.getBoundingClientRect) return false;
+          if (excludes.some(sel => el.matches && el.matches(sel))) return false;
+          if (el === header) return false;
+          if (!el.offsetParent && getComputedStyle(el).position !== 'fixed') return false; // hidden
+          return true;
+        } catch (e) { return false; }
+      });
+      const overlaps = [];
+      els.forEach(el => {
+        try {
+          const r = el.getBoundingClientRect();
+          const intersects = !(r.right < hdr.left || r.left > hdr.right || r.bottom < hdr.top || r.top > hdr.bottom);
+          if (intersects) overlaps.push({el, r});
+        } catch (e) {}
+      });
+      // remove existing highlights
+      document.querySelectorAll('.overlay-highlight').forEach(n => n.remove());
+      if (!overlaps.length) { console.log('detectOverlays: no overlapping elements found'); alert('No overlapping elements found over header'); return; }
+      console.log('detectOverlays: found', overlaps.length, 'overlapping elements');
+      overlaps.forEach((o, i) => {
+        const hi = document.createElement('div');
+        hi.className = 'overlay-highlight';
+        hi.dataset.idx = i;
+        hi.style.left = (o.r.left < 0 ? 0 : o.r.left) + 'px';
+        hi.style.top = (o.r.top < 0 ? 0 : o.r.top) + 'px';
+        hi.style.width = Math.max(2, o.r.width) + 'px';
+        hi.style.height = Math.max(2, o.r.height) + 'px';
+        const label = document.createElement('div');
+        label.className = 'overlay-label';
+        label.textContent = (o.el.tagName.toLowerCase()) + (o.el.id ? '#' + o.el.id : '') + (o.el.className ? ' .' + o.el.className.split(' ').slice(0,2).join('.') : '');
+        hi.appendChild(label);
+        document.body.appendChild(hi);
+      });
+      // auto-remove after 6s
+      setTimeout(()=>{ document.querySelectorAll('.overlay-highlight').forEach(n => n.remove()); }, 6000);
+    }
+
+    // tap visualizer: briefly show an indicator at the touch point (useful to see if touches are reaching the page)
+    let tapVisTimeout = null;
+    function enableTapVisualizer(durationMs = 6000) {
+      function showTap(x, y) {
+        const t = document.createElement('div');
+        t.className = 'tap-indicator';
+        t.style.left = (x - 18) + 'px';
+        t.style.top = (y - 18) + 'px';
+        document.body.appendChild(t);
+        setTimeout(()=>{ t.classList.add('fade'); setTimeout(()=>t.remove(), 220); }, 120);
+      }
+      function touchHandler(ev) {
+        try {
+          const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
+          const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
+          showTap(x, y);
+        } catch (e) {}
+      }
+      document.addEventListener('touchstart', touchHandler, {passive:true});
+      document.addEventListener('click', touchHandler, {capture:true});
+      if (tapVisTimeout) clearTimeout(tapVisTimeout);
+      tapVisTimeout = setTimeout(()=>{
+        document.removeEventListener('touchstart', touchHandler, {passive:true});
+        document.removeEventListener('click', touchHandler, {capture:true});
+      }, durationMs);
+    }
+
+    // create a small detect button near the debug UI so you can run these tools on the phone
+    function createDetectButton() {
+      try {
+        if (document.querySelector('.detect-overlays')) return;
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'detect-overlays';
+        b.textContent = 'Detect overlays';
+        b.style.position = 'fixed';
+        b.style.right = '12px';
+        b.style.bottom = '56px';
+        b.style.zIndex = '2147483647';
+        b.style.padding = '8px 10px';
+        b.style.background = 'rgba(255,80,80,0.9)';
+        b.style.color = '#fff';
+        b.style.border = 'none';
+        b.style.borderRadius = '8px';
+        b.style.fontSize = '13px';
+        b.style.boxShadow = '0 6px 18px rgba(0,0,0,0.45)';
+        b.addEventListener('click', (e) => { e.stopPropagation(); detectOverlays(); enableTapVisualizer(8000); });
+        document.body.appendChild(b);
+      } catch (e) { console.warn('createDetectButton failed', e); }
+    }
+
+    // create on DOM ready so the user can run it
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', createDetectButton);
+    else createDetectButton();
+  } catch (e) { console.warn('overlay debug init failed', e); }
+})();
