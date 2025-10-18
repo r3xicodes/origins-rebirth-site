@@ -418,6 +418,57 @@ footer {
   z-index: 2147483999 !important;
 }
 
+/* ==================================================================
+   Force the nav to be the absolute top layer on mobile and block
+   interactions with the rest of the page while open.
+   This uses the highest safe z-index and pointer-events rules.
+   ================================================================== */
+.nav-links, .nav-links.show {
+  position: fixed !important;
+  inset: 0 0 0 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  transform: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important; /* topmost */
+}
+
+.nav-links.show {
+  background: linear-gradient(180deg, rgba(6,12,18,0.98), rgba(6,12,18,0.98)) !important;
+}
+
+/* Keep the toggle always on top and reachable; position fixed so it's never covered */
+.menu-toggle {
+  position: fixed !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+
+/* Backdrop sits under the nav but above the rest of the site */
+.nav-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483646 !important;
+  background: rgba(0,0,0,0.45) !important;
+  pointer-events: auto !important;
+}
+
+/* Debug UI inherits the topmost layer so you can still access it */
+#js-debug-panel,
+.debug-toggle {
+  z-index: 2147483647 !important;
+}
+
+/* Disable pointer events and selection on everything except the nav, toggle, backdrop and debug UI while the nav is open. */
+body.nav-open *:not(.nav-links):not(.nav-links *):not(.nav-backdrop):not(.menu-toggle):not(#js-debug-panel):not(.debug-toggle) {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
 /* debug pulse when defensive handler detects touch - temporary */
 .menu-toggle.debug-pulse {
   box-shadow: 0 0 0 6px rgba(255,255,255,0.06) inset, 0 0 0 6px rgba(255,255,255,0.06);
