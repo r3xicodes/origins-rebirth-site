@@ -1,4 +1,27 @@
 /* Background slide logic (kept simple) */
+// Quick load/debug indicator so we know the file executed on the device
+try {
+  console && console.log && console.log('js/script.js loaded');
+} catch (e) {}
+
+// small global error handler to surface JS errors on-screen when testing mobile
+window.addEventListener('error', function (ev) {
+  try {
+    console && console.error && console.error('JS error captured:', ev.message, ev.error);
+    const msg = ev.message + (ev.error && ev.error.stack ? '\n' + ev.error.stack.split('\n')[0] : '');
+    const existing = document.getElementById('js-debug-panel');
+    if (existing) existing.textContent = 'JS ERROR: ' + msg;
+    else {
+      window.addEventListener('DOMContentLoaded', function () {
+        const p = document.createElement('div');
+        p.id = 'js-debug-panel';
+        p.textContent = 'JS ERROR: ' + msg;
+        document.body.appendChild(p);
+      });
+    }
+  } catch (e) {}
+});
+
 let currentSlide = 0;
 const slides = document.querySelectorAll('.background-carousel .slide');
 const slideInterval = 7000;
@@ -14,6 +37,15 @@ setInterval(showNextSlide, slideInterval);
 
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('loaded');
+  try {
+    let p = document.getElementById('js-debug-panel');
+    if (!p) {
+      p = document.createElement('div');
+      p.id = 'js-debug-panel';
+      document.body.appendChild(p);
+    }
+    p.textContent = 'js/script.js: script ok';
+  } catch (e) { /* ignore */ }
   initNavigation();
 });
 

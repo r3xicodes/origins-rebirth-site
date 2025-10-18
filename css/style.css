@@ -822,6 +822,23 @@ main.container {
   align-items: center;
 }
 
+/* Debug panel shown when a JS error is captured or to indicate script load */
+#js-debug-panel {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(220,20,60,0.95);
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  z-index: 2147483999; /* above everything */
+  max-width: 60vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  pointer-events: auto; /* allow taps so user can inspect */
+}
+
+
 /* Dropdown content (desktop) */
 .dropdown-content {
   display: none;
