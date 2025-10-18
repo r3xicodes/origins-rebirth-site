@@ -20,16 +20,33 @@ window.addEventListener('DOMContentLoaded', () => {
 /* Navigation & Dropdowns: mobile-first, accessible */
 function initNavigation() {
   const nav = document.getElementById('navMenu') || document.querySelector('.nav-links');
-  const menuToggle = createMenuToggle();
+  // Prefer existing button in markup to avoid duplicates
+  let menuToggle = document.querySelector('.menu-toggle');
+  if (!menuToggle) menuToggle = createMenuToggle();
   const backdrop = createBackdrop();
 
   // place toggle near nav (if not present in markup)
   const header = document.querySelector('.site-header') || document.body;
   if (header && !header.querySelector('.menu-toggle')) {
     header.insertBefore(menuToggle, nav || header.firstChild);
+  } else if (header && header.querySelector('.menu-toggle') && menuToggle !== header.querySelector('.menu-toggle')) {
+    // ensure menuToggle references the actual DOM element
+    menuToggle = header.querySelector('.menu-toggle');
   }
 
   const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
+
+  // Mark nav as drawer on small screens so behavior (backdrop vs full-drawer) adapts
+  function updateNavMode() {
+    if (!nav) return;
+    if (window.matchMedia('(max-width: 420px)').matches) {
+      nav.classList.add('drawer');
+    } else {
+      nav.classList.remove('drawer');
+    }
+  }
+  updateNavMode();
+  window.addEventListener('resize', updateNavMode);
 
   // Make dropdowns keyboard and touch friendly
   dropdowns.forEach(drop => {
@@ -111,14 +128,18 @@ function initNavigation() {
     }
   });
 
-  // attach toggle handlers
-  menuToggle.addEventListener('click', () => {
-    const shown = nav.classList.toggle('show');
-    menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
-    backdrop.classList.toggle('show', shown);
-    toggleInertBackdrop(shown);
-    if (shown) trapFocus(nav); else releaseFocusTrap();
-  });
+  // attach toggle handlers (guarded)
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      if (!nav) return;
+      const shown = nav.classList.toggle('show');
+      menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
+      // For drawer we don't need backdrop; for slide-in keep it
+      backdrop.classList.toggle('show', shown && !nav.classList.contains('drawer'));
+      toggleInertBackdrop(shown);
+      if (shown) trapFocus(nav); else releaseFocusTrap();
+    });
+  }
 
   backdrop.addEventListener('click', () => {
     closeMenu();
