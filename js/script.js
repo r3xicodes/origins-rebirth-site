@@ -90,41 +90,52 @@ function initNavigation() {
   // Global keyboard
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeMenu(); closeAllDropdowns(); const openToggle = document.querySelector('.menu-toggle.open'); if (openToggle) openToggle.focus(); } });
 
-  // Menu toggle
+  // Menu toggle: central toggle function + direct + delegated + defensive handlers
   if (menuToggle) {
-    // primary handler
-    menuToggle.addEventListener('click', (e) => {
-      if (!nav) return;
-      e.stopPropagation();
-      const shown = nav.classList.toggle('show');
-      menuToggle.classList.toggle('open', shown);
-      menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
-      menuToggle.setAttribute('aria-label', shown ? 'Close menu' : 'Open menu');
-      backdrop.classList.toggle('show', shown && !nav.classList.contains('drawer'));
+    const toggleMenuAction = (ev) => {
+      try { ev && ev.stopPropagation && ev.stopPropagation(); } catch (e) {}
+      const theNav = (document.getElementById('navMenu') || document.querySelector('.nav-links'));
+      if (!theNav) return;
+      const shown = theNav.classList.toggle('show');
+      try { menuToggle.classList.toggle('open', shown); } catch (e) {}
+      try { menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false'); } catch (e) {}
+      try { menuToggle.setAttribute('aria-label', shown ? 'Close menu' : 'Open menu'); } catch (e) {}
+      try { backdrop.classList.toggle('show', shown && !theNav.classList.contains('drawer')); } catch (e) {}
       document.body.classList.toggle('nav-open', shown);
+      try { menuToggle.style.pointerEvents = 'auto'; } catch (e) {}
       if (shown) {
-        try { nav.style.zIndex = '2147483000'; } catch (e) {}
+        try { theNav.style.zIndex = '2147483000'; } catch (e) {}
         try { menuToggle.style.zIndex = '2147483001'; } catch (e) {}
-        setTimeout(()=>{ const f = nav.querySelector('a, button, [tabindex]:not([tabindex="-1"])'); if (f) f.focus(); }, 60);
+        setTimeout(()=>{ const f = theNav.querySelector('a, button, [tabindex]:not([tabindex="-1"])'); if (f) f.focus(); }, 60);
       } else {
-        try { nav.style.zIndex = ''; } catch (e) {}
+        try { theNav.style.zIndex = ''; } catch (e) {}
         try { menuToggle.style.zIndex = ''; } catch (e) {}
       }
       toggleInertBackdrop(shown);
-      if (shown) trapFocus(nav); else releaseFocusTrap();
-    });
+      if (shown) trapFocus(theNav); else releaseFocusTrap();
+    };
+
+    // direct listener on the toggle (capture to increase chance of firing)
+    menuToggle.addEventListener('click', toggleMenuAction, {capture:true});
+
+    // delegated document listener for edge cases where direct click is swallowed
+    document.addEventListener('click', (e) => {
+      const mt = e.target.closest && e.target.closest('.menu-toggle');
+      if (mt) toggleMenuAction(e);
+    }, true);
 
     // defensive: if pointer events are swallowed by overlays, listen at document level too
     const defensiveToggle = (ev) => {
-      const rect = menuToggle.getBoundingClientRect();
-      const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
-      const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
-      if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-        // simulate click
-        menuToggle.click();
-        ev.preventDefault();
-        ev.stopPropagation();
-      }
+      try {
+        const rect = menuToggle.getBoundingClientRect();
+        const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
+        const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          toggleMenuAction(ev);
+          ev.preventDefault();
+          ev.stopPropagation();
+        }
+      } catch (e) { /* ignore */ }
     };
     document.addEventListener('pointerdown', defensiveToggle, {passive:false, capture:true});
     document.addEventListener('touchstart', defensiveToggle, {passive:false, capture:true});
