@@ -129,13 +129,16 @@ function initNavigation() {
   });
 
   // attach toggle handlers (guarded)
-  if (menuToggle) {
+    if (menuToggle) {
     menuToggle.addEventListener('click', () => {
       if (!nav) return;
       const shown = nav.classList.toggle('show');
       menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', shown ? 'Close menu' : 'Open menu');
       // For drawer we don't need backdrop; for slide-in keep it
       backdrop.classList.toggle('show', shown && !nav.classList.contains('drawer'));
+      // Prevent background scrolling when nav is open
+      document.body.classList.toggle('nav-open', shown);
       toggleInertBackdrop(shown);
       if (shown) trapFocus(nav); else releaseFocusTrap();
     });
@@ -147,10 +150,26 @@ function initNavigation() {
 
   function closeMenu() {
     if (nav) nav.classList.remove('show');
-    menuToggle.setAttribute('aria-expanded', 'false');
+    if (menuToggle) {
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open menu');
+    }
     backdrop.classList.remove('show');
+    document.body.classList.remove('nav-open');
     toggleInertBackdrop(false);
     releaseFocusTrap();
+  }
+
+  // Close the mobile nav when any normal nav link is clicked (useful on small screens)
+  if (nav) {
+    nav.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      // if it's a dropdown parent (has .dropbtn) then don't auto-close here
+      if (link.classList.contains('dropbtn')) return;
+      // allow normal navigation but close the menu first for mobile UX
+      closeMenu();
+    });
   }
 
   function closeAllDropdowns() {
