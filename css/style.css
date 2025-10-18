@@ -81,10 +81,11 @@ ul {
 }
 
 .hero h2 {
-  font-size: 3rem; /* Bigger heading */
-  font-weight: bold;
+  font-size: clamp(1.8rem, 8.5vw, 3rem);
+  font-weight: 700;
   margin: 0;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Readable on any bg */
+  line-height: 1.02;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.6); /* subtle shadow for readability */
 }
 
 .hero-content h1 {
@@ -309,19 +310,115 @@ footer {
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 880px) {
+  /* Keep header inline but give it breathing room */
   .site-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 1em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    gap: 0.75rem;
+    min-height: 56px;
   }
 
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
+  /* Slightly smaller logo and clear title spacing */
+  .site-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
   }
+  .site-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0.75rem 0 0;
+  }
+
+  /* Hamburger visible and comfortable to tap */
+  .menu-toggle {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  /* Mobile nav panel width and spacing for touch targets */
+  .nav-links {
+    top: 56px; /* just under header */
+    width: min(340px, 86vw);
+    padding: 0.75rem 0;
+    gap: 0.25rem;
+  }
+  .nav-links a, .nav-links .dropbtn { font-size: 1rem; padding: 0.9rem 1rem; }
+
+  /* Hero: shorter and more breathable on mobile */
+  .hero { height: 60vh; display:flex; align-items:center; justify-content:center; padding: 1rem 0; }
+  .hero h2 { font-size: clamp(1.6rem, 9.5vw, 2.4rem); line-height:1.02; padding: 0 1rem; }
 }
+
+@media (max-width: 420px) {
+  .site-logo { width: 34px; height: 34px; }
+  .site-title { font-size: 1.0rem; }
+  .hero { height: 55vh; }
+  .hero h2 { font-size: clamp(1.4rem, 9.5vw, 1.9rem); }
+}
+
+/* Full-screen drawer + hero overlay improvements */
+/* Applied at the end to override earlier mobile rules when necessary */
+@media (max-width: 420px) {
+  /* Make nav a full-screen drawer for clarity and easy tapping */
+  .nav-links {
+    position: fixed !important;
+    inset: 0 0 0 0;
+    width: 100% !important;
+    height: 100vh !important;
+    background: linear-gradient(180deg, rgba(6,12,18,0.98), rgba(6,12,18,0.98));
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 88px; /* leave space for header */
+    gap: 0.25rem;
+    z-index: 1200;
+    transform: translateX(0);
+  }
+
+  /* Nav items are full-width and large touch targets */
+  .nav-links a,
+  .nav-links .dropbtn,
+  .nav-links .dropdown-content a {
+    padding: 1.1rem 1.25rem;
+    font-size: 1.05rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Hide backdrop because drawer covers full screen */
+  .nav-backdrop { display: none !important; }
+
+  /* Hero overlay for better contrast, and keep hero content above overlay */
+  .hero { position: relative; overflow: hidden; }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero h2 { position: relative; z-index: 1; text-align: center; padding: 0 1rem; }
+
+  /* Make the header more visible on top of drawer context */
+  .site-header { position: fixed; inset: 0 0 auto 0; z-index: 1300; }
+  .menu-toggle { z-index: 1400; }
+}
+
+/* Small polish: slightly increased letter-spacing for headings for clarity */
+.hero h2 { letter-spacing: -0.5px; }
+
 .nav-links {
   display: flex;
   gap: 2em;
