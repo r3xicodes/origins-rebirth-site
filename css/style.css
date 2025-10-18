@@ -744,6 +744,26 @@ main.container {
   margin-left: auto;
 }
 
+/* visible hamburger lines */
+.menu-toggle .hamburger {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  position: relative;
+}
+.menu-toggle .hamburger::before,
+.menu-toggle .hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+}
+.menu-toggle .hamburger::before { top: -6px; }
+.menu-toggle .hamburger::after { top: 6px; }
+
 /* Nav links default (desktop) */
 .nav-links {
   display: flex;
