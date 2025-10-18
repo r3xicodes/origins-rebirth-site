@@ -418,6 +418,13 @@ footer {
   z-index: 2147483999 !important;
 }
 
+/* debug pulse when defensive handler detects touch - temporary */
+.menu-toggle.debug-pulse {
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.06) inset, 0 0 0 6px rgba(255,255,255,0.06);
+  transform: scale(0.98);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
 /* ensure backdrop is visible when it has .show (for slide-in mode) */
 .nav-backdrop.show {
   display: block !important;

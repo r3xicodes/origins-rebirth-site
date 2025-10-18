@@ -93,6 +93,7 @@ function initNavigation() {
   // Menu toggle: central toggle function + direct + delegated + defensive handlers
   if (menuToggle) {
     const toggleMenuAction = (ev) => {
+      try { console && console.log && console.log('toggleMenuAction fired'); } catch (e) {}
       try { ev && ev.stopPropagation && ev.stopPropagation(); } catch (e) {}
       const theNav = (document.getElementById('navMenu') || document.querySelector('.nav-links'));
       if (!theNav) return;
@@ -126,11 +127,14 @@ function initNavigation() {
 
     // defensive: if pointer events are swallowed by overlays, listen at document level too
     const defensiveToggle = (ev) => {
+      try { console && console.log && console.log('defensiveToggle fired'); } catch (e) {}
       try {
         const rect = menuToggle.getBoundingClientRect();
         const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
         const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
         if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+          // brief visual pulse to show we caught the touch (temporary debug)
+          try { menuToggle.classList.add('debug-pulse'); setTimeout(()=>menuToggle.classList.remove('debug-pulse'), 220); } catch (e) {}
           toggleMenuAction(ev);
           ev.preventDefault();
           ev.stopPropagation();
