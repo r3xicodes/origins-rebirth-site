@@ -412,6 +412,17 @@ footer {
 /* Ensure any backdrop remains below the nav but above page content */
 .nav-backdrop { z-index: 2147482000 !important; }
 
+/* Defensive: always allow tapping the menu toggle and keep it topmost */
+.menu-toggle {
+  pointer-events: auto !important;
+  z-index: 2147483999 !important;
+}
+
+/* ensure backdrop is visible when it has .show (for slide-in mode) */
+.nav-backdrop.show {
+  display: block !important;
+}
+
   /* Nav items are full-width and large touch targets, left aligned */
   .nav-links a,
   .nav-links .dropbtn,

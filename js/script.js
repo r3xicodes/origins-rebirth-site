@@ -92,15 +92,16 @@ function initNavigation() {
 
   // Menu toggle
   if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
+    // primary handler
+    menuToggle.addEventListener('click', (e) => {
       if (!nav) return;
+      e.stopPropagation();
       const shown = nav.classList.toggle('show');
       menuToggle.classList.toggle('open', shown);
       menuToggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
       menuToggle.setAttribute('aria-label', shown ? 'Close menu' : 'Open menu');
       backdrop.classList.toggle('show', shown && !nav.classList.contains('drawer'));
       document.body.classList.toggle('nav-open', shown);
-      // defensive inline z-index to ensure top layering on problematic pages
       if (shown) {
         try { nav.style.zIndex = '2147483000'; } catch (e) {}
         try { menuToggle.style.zIndex = '2147483001'; } catch (e) {}
@@ -112,6 +113,21 @@ function initNavigation() {
       toggleInertBackdrop(shown);
       if (shown) trapFocus(nav); else releaseFocusTrap();
     });
+
+    // defensive: if pointer events are swallowed by overlays, listen at document level too
+    const defensiveToggle = (ev) => {
+      const rect = menuToggle.getBoundingClientRect();
+      const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
+      if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+        // simulate click
+        menuToggle.click();
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
+    };
+    document.addEventListener('pointerdown', defensiveToggle, {passive:false, capture:true});
+    document.addEventListener('touchstart', defensiveToggle, {passive:false, capture:true});
   }
 
   backdrop.addEventListener('click', () => closeMenu());
