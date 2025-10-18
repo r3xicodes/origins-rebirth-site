@@ -400,6 +400,18 @@ footer {
     pointer-events: auto;
   }
 
+/* Ensure open nav sits above all other content (safety in case other pages override header z-index) */
+.nav-links.show {
+  z-index: 2147483000 !important;
+}
+.menu-toggle {
+  z-index: 2147483001 !important;
+}
+.nav-links.show * { pointer-events: auto !important; }
+
+/* Ensure any backdrop remains below the nav but above page content */
+.nav-backdrop { z-index: 2147482000 !important; }
+
   /* Nav items are full-width and large touch targets, left aligned */
   .nav-links a,
   .nav-links .dropbtn,
