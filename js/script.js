@@ -45,21 +45,35 @@ function initNavigation() {
       nav.classList.remove('drawer');
     }
   }
-  updateNavMode();
-  window.addEventListener('resize', updateNavMode);
-
-  // Make dropdowns keyboard and touch friendly
-  dropdowns.forEach(drop => {
-    const trigger = drop.querySelector('.dropbtn') || drop.querySelector('a');
-    const menu = drop.querySelector('.dropdown-content');
-    if (!trigger || !menu) return;
-
-    // Ensure trigger is focusable
-    trigger.setAttribute('tabindex', '0');
-    trigger.setAttribute('aria-haspopup', 'true');
-    trigger.setAttribute('aria-expanded', 'false');
-
     // Click behavior: first click opens, second click navigates if href
+    trigger.addEventListener('click', (e) => {
+      const href = trigger.getAttribute('href');
+      // If we are in drawer mode, treat dropdowns as accordions (click to expand)
+      if (nav && nav.classList.contains('drawer')) {
+        e.preventDefault();
+        const isOpen = drop.classList.toggle('active');
+        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        // If opening, close other dropdowns to keep it tidy
+        if (isOpen) {
+          document.querySelectorAll('.dropdown.active').forEach(d => {
+            if (d !== drop) {
+              d.classList.remove('active');
+              const t = d.querySelector('.dropbtn') || d.querySelector('a');
+              if (t) t.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+        return;
+      }
+      // non-drawer behavior: first click opens, second click navigates if href
+      if (drop.classList.contains('active')) {
+        if (href && href !== '#') return; // allow navigation
+      }
+      e.preventDefault();
+      closeAllDropdowns();
+      drop.classList.toggle('active');
+      const expanded = drop.classList.contains('active');
+      trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     trigger.addEventListener('click', (e) => {
       const href = trigger.getAttribute('href');
       if (drop.classList.contains('active')) {

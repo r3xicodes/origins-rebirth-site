@@ -764,6 +764,23 @@ main.container {
 .menu-toggle .hamburger::before { top: -6px; }
 .menu-toggle .hamburger::after { top: 6px; }
 
+/* hamburger -> X animation when .open is present */
+.menu-toggle.open .hamburger {
+  background: transparent;
+}
+.menu-toggle.open .hamburger::before,
+.menu-toggle.open .hamburger::after {
+  top: 0;
+  transform-origin: 50% 50%;
+}
+.menu-toggle.open .hamburger::before { transform: rotate(45deg); }
+.menu-toggle.open .hamburger::after { transform: rotate(-45deg); }
+.menu-toggle .hamburger,
+.menu-toggle .hamburger::before,
+.menu-toggle .hamburger::after {
+  transition: transform 180ms ease, top 180ms ease, background 180ms ease;
+}
+
 /* Nav links default (desktop) */
 .nav-links {
   display: flex;
