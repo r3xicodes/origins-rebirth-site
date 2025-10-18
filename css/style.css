@@ -425,6 +425,10 @@ footer {
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
+/* temporary debug toggle button style */
+.debug-toggle { display: none; }
+@media (max-width: 768px) { .debug-toggle { display: block !important; } }
+
 /* ensure backdrop is visible when it has .show (for slide-in mode) */
 .nav-backdrop.show {
   display: block !important;

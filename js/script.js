@@ -143,6 +143,28 @@ function initNavigation() {
     };
     document.addEventListener('pointerdown', defensiveToggle, {passive:false, capture:true});
     document.addEventListener('touchstart', defensiveToggle, {passive:false, capture:true});
+
+    // add a small persistent debug toggle in the viewport so you can test reliably
+    try {
+      const dbg = document.createElement('button');
+      dbg.className = 'debug-toggle';
+      dbg.type = 'button';
+      dbg.innerText = 'Menu (dbg)';
+      dbg.setAttribute('aria-hidden','false');
+      dbg.style.position = 'fixed';
+      dbg.style.right = '12px';
+      dbg.style.bottom = '12px';
+      dbg.style.zIndex = '2147484000';
+      dbg.style.padding = '8px 10px';
+      dbg.style.background = 'rgba(0,0,0,0.7)';
+      dbg.style.color = '#fff';
+      dbg.style.border = '1px solid rgba(255,255,255,0.06)';
+      dbg.style.borderRadius = '8px';
+      dbg.style.fontSize = '13px';
+      dbg.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
+      dbg.addEventListener('click', (e) => { e.stopPropagation(); toggleMenuAction(e); });
+      document.body.appendChild(dbg);
+    } catch (e) { /* ignore */ }
   }
 
   backdrop.addEventListener('click', () => closeMenu());
