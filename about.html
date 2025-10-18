@@ -28,17 +28,19 @@
   <div class="background-overlay"></div>
 
   <!-- ✦ PAGE CONTENT BELOW -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <div class="logo-container">
-      <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
-      </a>
+      <a href="index.html" aria-label="Home"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" /></a>
     </div>
     <h1 class="site-title">Origins Rebirth</h1>
-    <nav class="nav-links" aria-label="Main Navigation">
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="nav-links" id="navMenu" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <div class="dropdown">
-        <a href="about.html" class="dropbtn active">About ▾</a>
+        <a href="about.html" class="dropbtn">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html">Origins</a>
@@ -56,7 +58,7 @@
   </section>
 
   <!-- ✦ MAIN CONTENT -->
-  <main class="container">
+  <main id="main-content" class="container">
     <section class="glass-box intro">
       <h2>About Origins Rebirth</h2>
       <p>

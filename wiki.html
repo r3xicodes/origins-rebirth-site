@@ -149,12 +149,15 @@
       </a>
     </div>
     <h1 class="site-title">Origins Rebirth</h1>
-    <nav class="nav-links" aria-label="Main Navigation">
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="nav-links" id="navMenu" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <div class="dropdown">
-        <a href="about.html">About ▾</a>
+        <a href="about.html" class="dropbtn">About ▾</a>
         <div class="dropdown-content">
-          <a href="wiki.html" class="dropbtn active">Wiki</a>
+          <a href="wiki.html">Wiki</a>
           <a href="origins.html">Origins</a>
           <a href="map.html">Map</a>
         </div>
@@ -165,7 +168,7 @@
   </header>
 
   <!-- Main content -->
-  <main class="container">
+  <main id="main-content" class="container">
         <iframe class="wiki-frame" src="https://wiki.originsrebirth.com/docs" title="Origins Rebirth Wiki"></iframe>
   </main>
 

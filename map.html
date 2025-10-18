@@ -60,21 +60,23 @@
   </div>
 
   <!-- ✦ PAGE CONTENT BELOW -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <div class="logo-container">
-      <a href="index.html" aria-label="Home">
-        <img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" />
-      </a>
+      <a href="index.html" aria-label="Home"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo" /></a>
     </div>
     <h1 class="site-title">Origins Rebirth</h1>
-    <nav class="nav-links" aria-label="Main Navigation">
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="nav-links" id="navMenu" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <div class="dropdown">
         <a href="about.html" class="dropbtn">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html">Origins</a>
-          <a href="map.html" class="active">Map</a>
+          <a href="map.html">Map</a>
         </div>
       </div>
       <a href="rules.html">Rules</a>
@@ -84,7 +86,7 @@
 
 
   <!-- Fullscreen Map -->
-  <main id="dynmap">
+  <main id="main-content" class="map-fullscreen" role="main">
         <iframe src="https://map.originsrebirth.com/" style="width:100%; height:1000px; border:none;"></iframe>
   </main>
 

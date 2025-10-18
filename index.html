@@ -28,21 +28,22 @@
   </div>
   <div class="background-overlay"></div>
   <!-- ✦ PAGE CONTENT BELOW -->
-  <!-- ✦ HEADER -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
     <div class="logo-container">
-      <a href="index.html"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo"></a>
+      <a href="index.html" aria-label="Home"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo"></a>
     </div>
     <h1 class="site-title">Origins Rebirth</h1>
 
-    <!-- Hamburger (only shows on mobile) -->
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <!-- Menu toggle (injected or enhanced by JS) -->
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
 
-    <!-- Nav (full horizontal on PC, dropdown on mobile) -->
-    <nav class="nav-links" id="navMenu">
+    <nav class="nav-links" id="navMenu" aria-label="Main navigation">
       <a href="index.html" class="active">Home</a>
       <div class="dropdown">
-        <a href="about.html">About ▾</a>
+        <a href="about.html" class="dropbtn">About ▾</a>
         <div class="dropdown-content">
           <a href="wiki.html">Wiki</a>
           <a href="origins.html">Origins</a>
@@ -59,7 +60,7 @@
     <h2>Your Epic Adventure Begins</h2>
   </section>
 
-  <main class="container home-sections">
+  <main id="main-content" class="container home-sections">
     <section class="glass-box intro">
       <h2>Welcome to Origins Rebirth</h2>
       <p>Explore a vibrant Minecraft server powered by custom Origins and plugins. Our server supports both Java and Bedrock editions, offering a seamless cross-platform experience.</p>

@@ -7,20 +7,31 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Origins Rebirth</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="origins.html">Origins</a></li>
-        <li><a href="rules.html">Rules</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="logo-container">
+      <a href="index.html" aria-label="Home"><img src="assets/logo.png" alt="Origins Rebirth Logo" class="site-logo"></a>
+    </div>
+    <h1 class="site-title">Origins Rebirth</h1>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+    <nav class="nav-links" id="navMenu" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="about.html" class="dropbtn">About ▾</a>
+        <div class="dropdown-content">
+          <a href="wiki.html">Wiki</a>
+          <a href="origins.html">Origins</a>
+          <a href="map.html">Map</a>
+        </div>
+      </div>
+      <a href="rules.html">Rules</a>
+      <a href="contact.html">Join</a>
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <section>
       <h2>Welcome to Origins Rebirth!</h2>
       <p>This is a custom Minecraft Origins server that supports Java and Bedrock players. Explore unique plugins, choose your origin, and join a thriving cross-platform community.</p>

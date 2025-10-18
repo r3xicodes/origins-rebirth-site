@@ -8,6 +8,34 @@ body {
   color: #fff;
   line-height: 1.6;
 }
+
+/* Accessibility: visible focus styles */
+a:focus, button:focus, .menu-toggle:focus, .dropbtn:focus {
+  outline: 3px solid #ffb400;
+  outline-offset: 3px;
+}
+
+/* Skip link - visible on focus */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 0.75rem;
+  background: #ffb400;
+  color: #000;
+  z-index: 9999;
+  border-radius: 4px;
+}
 body {
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -15,27 +43,6 @@ body {
 
 body.loaded {
   opacity: 1;
-}
-
-/* Skip to content link (visually hidden until focused) */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-.skip-link:focus {
-  left: 1rem;
-  top: 1rem;
-  width: auto;
-  height: auto;
-  background: rgba(0,0,0,0.9);
-  color: #fff;
-  padding: .5rem .75rem;
-  border-radius: 6px;
-  z-index: 2000;
 }
 
 
@@ -282,7 +289,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1em 2em;
+  padding: 0.5rem 1rem; /* compact header spacing */
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   position: sticky;
@@ -296,7 +303,7 @@ footer {
 }
 
 .site-logo {
-  width: 40px;
+  width: 36px;
   height: auto;
   margin-right: 1em;
   border-radius: 50%;
@@ -304,7 +311,7 @@ footer {
 }
 
 .site-title {
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   color: white;
   margin: 0;
 }
@@ -318,7 +325,7 @@ footer {
 
   .nav-links {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     margin-top: 1em;
   }
 }
@@ -438,14 +445,13 @@ footer {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Keep dropdown visible when JS marks it active (used for touch/keyboard) */
-.dropdown.active > .dropdown-content {
-  display: flex;
-  flex-direction: column;
-}
-
 /* Show on Hover */
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Also show when JS sets the dropdown as active (click/touch/keyboard) */
+.dropdown.active .dropdown-content {
   display: block;
 }
 
@@ -620,9 +626,12 @@ main.container {
 /* Hamburger toggle button hidden by default (PC) */
 .menu-toggle {
   display: none;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   cursor: pointer;
   margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  user-select: none;
 }
 
 /* Nav links default (desktop) */
@@ -656,20 +665,48 @@ main.container {
 
   /* Nav links vertical and hidden by default */
   .nav-links {
-    display: none; /* hidden until toggle */
+    /* slide-in panel from right */
+    display: flex; /* keep flex so children stack */
     flex-direction: column;
-    background: rgba(0,0,0,0.95);
-    position: absolute;
-    top: 60px;  /* adjust based on header height */
+    background: rgba(0,0,0,0.98);
+    position: fixed;
+    top: 56px;  /* below header */
     right: 0;
-    width: 200px;
-    border-radius: 0 0 0 12px;
-    padding: 0.5rem 0; /* compact padding */
-    gap: 0; /* remove extra spacing */
+    height: calc(100% - 56px);
+    width: min(320px, 80%);
+    transform: translateX(100%);
+    transition: transform 0.28s ease;
+    border-left: 1px solid rgba(255,255,255,0.03);
+    padding: 0.5rem 0;
+    gap: 0;
+    z-index: 60;
+    box-shadow: -8px 0 24px rgba(0,0,0,0.5);
   }
 
+  /* backdrop behind the slide-in nav */
+  .nav-backdrop {
+    position: fixed;
+    inset: 56px 0 0 0; /* cover everything below header */
+    background: rgba(0,0,0,0.45);
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .nav-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* visible state slides the panel into view */
   .nav-links.show {
-    display: flex;
+    transform: translateX(0);
+  }
+
+  /* When nav is visible, reduce body scroll (you can handle this with JS if desired) */
+  body.nav-open {
+    overflow: hidden;
   }
 
   /* Dropdown inside mobile nav */
@@ -685,7 +722,8 @@ main.container {
 
 
   .dropdown-content a {
-    padding: 0.5rem 1rem; /* compact links */
+    padding: 0.6rem 1rem; /* compact links */
+    touch-action: manipulation;
   }
 
   /* Footer more compact */
