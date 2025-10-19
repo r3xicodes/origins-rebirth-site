@@ -49,6 +49,56 @@ window.addEventListener('DOMContentLoaded', () => {
   initNavigation();
 });
 
+// Nav debug counters/UI to help test which handlers run on mobile
+(function () {
+  try {
+    if (window.__navDebug) return;
+    window.__navDebug = {
+      counters: { scriptLoaded: 1, toggleClicks: 0, defensiveFired: 0, delegatedFired: 0, menuOpen: 0 },
+      inc(name) { if (!this.counters[name] && this.counters[name] !== 0) this.counters[name] = 0; this.counters[name]++; this.render(); },
+      set(name, val) { this.counters[name] = val; this.render(); },
+      render() {
+        try {
+          let s = document.getElementById('nav-debug-status');
+          if (!s) return;
+          s.innerHTML = `script:${this.counters.scriptLoaded} toggle:${this.counters.toggleClicks} def:${this.counters.defensiveFired} del:${this.counters.delegatedFired} open:${this.counters.menuOpen}`;
+        } catch (e) {}
+      },
+      createUI() {
+        try {
+          if (document.getElementById('nav-debug-status')) return;
+          const d = document.createElement('div');
+          d.id = 'nav-debug-status';
+          d.title = 'Nav debug status (tap to open programmatically)';
+          d.tabIndex = 0;
+          d.style.position = 'fixed';
+          d.style.left = '8px';
+          d.style.top = '8px';
+          d.style.zIndex = '2147483647';
+          d.style.background = 'rgba(0,0,0,0.7)';
+          d.style.color = '#fff';
+          d.style.padding = '6px 8px';
+          d.style.borderRadius = '6px';
+          d.style.fontSize = '12px';
+          d.style.fontFamily = 'Segoe UI, sans-serif';
+          d.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
+          d.addEventListener('click', (e) => { e.stopPropagation(); try { const mt = document.querySelector('.menu-toggle'); if (mt) mt.click(); else alert('No .menu-toggle present'); } catch (err) { alert('programmatic open failed'); } });
+          const cbtn = document.createElement('button');
+          cbtn.textContent = 'CLR';
+          cbtn.style.marginLeft = '8px';
+          cbtn.style.fontSize = '11px';
+          cbtn.addEventListener('click', (ev) => { ev.stopPropagation(); this.counters.toggleClicks=0; this.counters.defensiveFired=0; this.counters.delegatedFired=0; this.counters.menuOpen=0; this.render(); });
+          d.appendChild(document.createTextNode('nav: initializing...'));
+          d.appendChild(cbtn);
+          document.body.appendChild(d);
+          this.render();
+        } catch (e) { console.warn('navDebug createUI failed', e); }
+      }
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => window.__navDebug.createUI()); else window.__navDebug.createUI();
+  } catch (e) {}
+})();
+
 /* Navigation & Dropdowns: mobile-first, accessible */
 function initNavigation() {
   const nav = document.getElementById('navMenu') || document.querySelector('.nav-links');
@@ -126,6 +176,7 @@ function initNavigation() {
   if (menuToggle) {
     const toggleMenuAction = (ev) => {
       try { console && console.log && console.log('toggleMenuAction fired'); } catch (e) {}
+      try { if (window.__navDebug) window.__navDebug.inc('toggleClicks'); } catch (e) {}
       try { ev && ev.stopPropagation && ev.stopPropagation(); } catch (e) {}
       const theNav = (document.getElementById('navMenu') || document.querySelector('.nav-links'));
       if (!theNav) return;
@@ -154,12 +205,13 @@ function initNavigation() {
     // delegated document listener for edge cases where direct click is swallowed
     document.addEventListener('click', (e) => {
       const mt = e.target.closest && e.target.closest('.menu-toggle');
-      if (mt) toggleMenuAction(e);
+      if (mt) { try { if (window.__navDebug) window.__navDebug.inc('delegatedFired'); } catch (err) {} toggleMenuAction(e); }
     }, true);
 
     // defensive: if pointer events are swallowed by overlays, listen at document level too
     const defensiveToggle = (ev) => {
       try { console && console.log && console.log('defensiveToggle fired'); } catch (e) {}
+      try { if (window.__navDebug) window.__navDebug.inc('defensiveFired'); } catch (e) {}
       try {
         const rect = menuToggle.getBoundingClientRect();
         const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
