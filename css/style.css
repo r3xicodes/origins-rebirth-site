@@ -400,29 +400,9 @@ footer {
     pointer-events: auto;
   }
 
-/* Ensure open nav sits above all other content (safety in case other pages override header z-index) */
-.nav-links.show {
-  z-index: 2147483000 !important;
-}
-.menu-toggle {
-  z-index: 2147483001 !important;
-}
-.nav-links.show * { pointer-events: auto !important; }
-
-/* Ensure any backdrop remains below the nav but above page content */
-.nav-backdrop { z-index: 2147482000 !important; }
-
-/* Defensive: always allow tapping the menu toggle and keep it topmost */
-.menu-toggle {
-  pointer-events: auto !important;
-  z-index: 2147483999 !important;
-}
-
-/* ==================================================================
-   Force the nav to be the absolute top layer on mobile and block
-   interactions with the rest of the page while open.
-   This uses the highest safe z-index and pointer-events rules.
-   ================================================================== */
+/* Keep the drawer visually over the hero background but under the site content.
+   This prevents the menu from covering floating cards/overlays while still
+   giving a transparent overlay feel over the hero carousel. */
 .nav-links, .nav-links.show {
   position: fixed !important;
   inset: 0 0 0 0 !important;
@@ -432,29 +412,27 @@ footer {
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
-  z-index: 2147483647 !important; /* topmost */
+  z-index: 0 !important; /* sit above background but below site content (container z-index:1) */
 }
 
 .nav-links.show {
-  background: linear-gradient(180deg, rgba(6,12,18,0.98), rgba(6,12,18,0.98)) !important;
+  /* semi-transparent so hero is still visible beneath */
+  background: linear-gradient(180deg, rgba(6,12,18,0.55), rgba(6,12,18,0.55)) !important;
+  backdrop-filter: blur(6px);
 }
 
-/* Keep the toggle always on top and reachable; position fixed so it's never covered */
+/* Keep the toggle positioned within the header (header already sits above content) */
 .menu-toggle {
-  position: fixed !important;
-  top: 12px !important;
-  right: 12px !important;
-  z-index: 2147483647 !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: 1400; /* header keeps control of stacking */
   pointer-events: auto !important;
 }
 
-/* Backdrop sits under the nav but above the rest of the site */
+/* Backdrop hidden since the drawer is visually subtle and content floats above it */
 .nav-backdrop {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 2147483646 !important;
-  background: rgba(0,0,0,0.45) !important;
-  pointer-events: auto !important;
+  display: none !important;
 }
 
 /* Debug UI inherits the topmost layer so you can still access it */
