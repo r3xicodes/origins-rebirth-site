@@ -873,57 +873,7 @@ main.container {
   align-items: center;
 }
 
-/* Debug panel shown when a JS error is captured or to indicate script load */
-#js-debug-panel {
-  position: fixed;
-  right: 8px;
-  bottom: 8px;
-  background: rgba(220,20,60,0.95);
-  color: #fff;
-  padding: 6px 10px;
-  font-size: 12px;
-  border-radius: 6px;
-  z-index: 2147483999; /* above everything */
-  max-width: 60vw;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  pointer-events: auto; /* allow taps so user can inspect */
-}
-
-/* Overlay highlight used by detectOverlays() */
-.overlay-highlight {
-  position: fixed !important;
-  border: 3px dashed rgba(255,200,0,0.95);
-  background: rgba(255,200,0,0.06);
-  pointer-events: none !important;
-  z-index: 2147483650 !important;
-}
-.overlay-highlight .overlay-label {
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  font-size: 11px;
-  padding: 4px 6px;
-  border-radius: 4px;
-  pointer-events: none;
-}
-
-/* Tap indicator */
-.tap-indicator {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  background: rgba(0,150,255,0.9);
-  box-shadow: 0 6px 18px rgba(0,120,255,0.3);
-  transform: scale(0.7);
-  opacity: 1;
-  transition: transform 220ms ease, opacity 220ms ease;
-  z-index: 2147483651 !important;
-  pointer-events: none;
-}
-.tap-indicator.fade { transform: scale(1.4); opacity: 0; }
+/* Debug styles removed for production */
 
 
 /* Dropdown content (desktop) */

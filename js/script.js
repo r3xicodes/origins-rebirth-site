@@ -1,27 +1,4 @@
 /* Background slide logic (kept simple) */
-// Quick load/debug indicator so we know the file executed on the device
-try {
-  console && console.log && console.log('js/script.js loaded');
-} catch (e) {}
-
-// small global error handler to surface JS errors on-screen when testing mobile
-window.addEventListener('error', function (ev) {
-  try {
-    console && console.error && console.error('JS error captured:', ev.message, ev.error);
-    const msg = ev.message + (ev.error && ev.error.stack ? '\n' + ev.error.stack.split('\n')[0] : '');
-    const existing = document.getElementById('js-debug-panel');
-    if (existing) existing.textContent = 'JS ERROR: ' + msg;
-    else {
-      window.addEventListener('DOMContentLoaded', function () {
-        const p = document.createElement('div');
-        p.id = 'js-debug-panel';
-        p.textContent = 'JS ERROR: ' + msg;
-        document.body.appendChild(p);
-      });
-    }
-  } catch (e) {}
-});
-
 let currentSlide = 0;
 const slides = document.querySelectorAll('.background-carousel .slide');
 const slideInterval = 7000;
@@ -37,67 +14,8 @@ setInterval(showNextSlide, slideInterval);
 
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('loaded');
-  try {
-    let p = document.getElementById('js-debug-panel');
-    if (!p) {
-      p = document.createElement('div');
-      p.id = 'js-debug-panel';
-      document.body.appendChild(p);
-    }
-    p.textContent = 'js/script.js: script ok';
-  } catch (e) { /* ignore */ }
   initNavigation();
 });
-
-// Nav debug counters/UI to help test which handlers run on mobile
-(function () {
-  try {
-    if (window.__navDebug) return;
-    window.__navDebug = {
-      counters: { scriptLoaded: 1, toggleClicks: 0, defensiveFired: 0, delegatedFired: 0, menuOpen: 0 },
-      inc(name) { if (!this.counters[name] && this.counters[name] !== 0) this.counters[name] = 0; this.counters[name]++; this.render(); },
-      set(name, val) { this.counters[name] = val; this.render(); },
-      render() {
-        try {
-          let s = document.getElementById('nav-debug-status');
-          if (!s) return;
-          s.innerHTML = `script:${this.counters.scriptLoaded} toggle:${this.counters.toggleClicks} def:${this.counters.defensiveFired} del:${this.counters.delegatedFired} open:${this.counters.menuOpen}`;
-        } catch (e) {}
-      },
-      createUI() {
-        try {
-          if (document.getElementById('nav-debug-status')) return;
-          const d = document.createElement('div');
-          d.id = 'nav-debug-status';
-          d.title = 'Nav debug status (tap to open programmatically)';
-          d.tabIndex = 0;
-          d.style.position = 'fixed';
-          d.style.left = '8px';
-          d.style.top = '8px';
-          d.style.zIndex = '2147483647';
-          d.style.background = 'rgba(0,0,0,0.7)';
-          d.style.color = '#fff';
-          d.style.padding = '6px 8px';
-          d.style.borderRadius = '6px';
-          d.style.fontSize = '12px';
-          d.style.fontFamily = 'Segoe UI, sans-serif';
-          d.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
-          d.addEventListener('click', (e) => { e.stopPropagation(); try { const mt = document.querySelector('.menu-toggle'); if (mt) mt.click(); else alert('No .menu-toggle present'); } catch (err) { alert('programmatic open failed'); } });
-          const cbtn = document.createElement('button');
-          cbtn.textContent = 'CLR';
-          cbtn.style.marginLeft = '8px';
-          cbtn.style.fontSize = '11px';
-          cbtn.addEventListener('click', (ev) => { ev.stopPropagation(); this.counters.toggleClicks=0; this.counters.defensiveFired=0; this.counters.delegatedFired=0; this.counters.menuOpen=0; this.render(); });
-          d.appendChild(document.createTextNode('nav: initializing...'));
-          d.appendChild(cbtn);
-          document.body.appendChild(d);
-          this.render();
-        } catch (e) { console.warn('navDebug createUI failed', e); }
-      }
-    };
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => window.__navDebug.createUI()); else window.__navDebug.createUI();
-  } catch (e) {}
-})();
 
 /* Navigation & Dropdowns: mobile-first, accessible */
 function initNavigation() {
@@ -175,8 +93,6 @@ function initNavigation() {
   // Menu toggle: central toggle function + direct + delegated + defensive handlers
   if (menuToggle) {
     const toggleMenuAction = (ev) => {
-      try { console && console.log && console.log('toggleMenuAction fired'); } catch (e) {}
-      try { if (window.__navDebug) window.__navDebug.inc('toggleClicks'); } catch (e) {}
       try { ev && ev.stopPropagation && ev.stopPropagation(); } catch (e) {}
       const theNav = (document.getElementById('navMenu') || document.querySelector('.nav-links'));
       if (!theNav) return;
@@ -199,56 +115,29 @@ function initNavigation() {
       if (shown) trapFocus(theNav); else releaseFocusTrap();
     };
 
-    // direct listener on the toggle (capture to increase chance of firing)
+    // direct listener on the toggle
     menuToggle.addEventListener('click', toggleMenuAction, {capture:true});
 
-    // delegated document listener for edge cases where direct click is swallowed
+    // delegated document listener as fallback
     document.addEventListener('click', (e) => {
       const mt = e.target.closest && e.target.closest('.menu-toggle');
-      if (mt) { try { if (window.__navDebug) window.__navDebug.inc('delegatedFired'); } catch (err) {} toggleMenuAction(e); }
+      if (mt) toggleMenuAction(e);
     }, true);
 
-    // defensive: if pointer events are swallowed by overlays, listen at document level too
+    // defensive: capture pointerdown as a last resort
     const defensiveToggle = (ev) => {
-      try { console && console.log && console.log('defensiveToggle fired'); } catch (e) {}
-      try { if (window.__navDebug) window.__navDebug.inc('defensiveFired'); } catch (e) {}
       try {
         const rect = menuToggle.getBoundingClientRect();
         const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
         const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
         if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-          // brief visual pulse to show we caught the touch (temporary debug)
-          try { menuToggle.classList.add('debug-pulse'); setTimeout(()=>menuToggle.classList.remove('debug-pulse'), 220); } catch (e) {}
           toggleMenuAction(ev);
-          ev.preventDefault();
-          ev.stopPropagation();
+          try { ev.preventDefault(); ev.stopPropagation(); } catch (e) {}
         }
       } catch (e) { /* ignore */ }
     };
     document.addEventListener('pointerdown', defensiveToggle, {passive:false, capture:true});
     document.addEventListener('touchstart', defensiveToggle, {passive:false, capture:true});
-
-    // add a small persistent debug toggle in the viewport so you can test reliably
-    try {
-      const dbg = document.createElement('button');
-      dbg.className = 'debug-toggle';
-      dbg.type = 'button';
-      dbg.innerText = 'Menu (dbg)';
-      dbg.setAttribute('aria-hidden','false');
-      dbg.style.position = 'fixed';
-      dbg.style.right = '12px';
-      dbg.style.bottom = '12px';
-      dbg.style.zIndex = '2147484000';
-      dbg.style.padding = '8px 10px';
-      dbg.style.background = 'rgba(0,0,0,0.7)';
-      dbg.style.color = '#fff';
-      dbg.style.border = '1px solid rgba(255,255,255,0.06)';
-      dbg.style.borderRadius = '8px';
-      dbg.style.fontSize = '13px';
-      dbg.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
-      dbg.addEventListener('click', (e) => { e.stopPropagation(); toggleMenuAction(e); });
-      document.body.appendChild(dbg);
-    } catch (e) { /* ignore */ }
   }
 
   backdrop.addEventListener('click', () => closeMenu());
@@ -292,109 +181,4 @@ function initNavigation() {
   function createBackdrop() { let b = document.querySelector('.nav-backdrop'); if (!b) { b = document.createElement('div'); b.className = 'nav-backdrop'; document.body.appendChild(b); } return b; }
 }
 
-// ---------------------------
-// Debug helpers: overlay detector & tap visualizer
-// ---------------------------
-(function () {
-  try {
-    // small helper to create highlight overlays for elements that overlap the header
-    function detectOverlays() {
-      const header = document.querySelector('.site-header');
-      if (!header) { console.warn('detectOverlays: .site-header not found'); return; }
-      const hdr = header.getBoundingClientRect();
-      const excludes = ['.nav-links', '.nav-backdrop', '.menu-toggle', '#js-debug-panel', '.debug-toggle', '.overlay-highlight', '.tap-indicator'];
-      const els = Array.from(document.body.querySelectorAll('*')).filter(el => {
-        try {
-          if (!el.getBoundingClientRect) return false;
-          if (excludes.some(sel => el.matches && el.matches(sel))) return false;
-          if (el === header) return false;
-          if (!el.offsetParent && getComputedStyle(el).position !== 'fixed') return false; // hidden
-          return true;
-        } catch (e) { return false; }
-      });
-      const overlaps = [];
-      els.forEach(el => {
-        try {
-          const r = el.getBoundingClientRect();
-          const intersects = !(r.right < hdr.left || r.left > hdr.right || r.bottom < hdr.top || r.top > hdr.bottom);
-          if (intersects) overlaps.push({el, r});
-        } catch (e) {}
-      });
-      // remove existing highlights
-      document.querySelectorAll('.overlay-highlight').forEach(n => n.remove());
-      if (!overlaps.length) { console.log('detectOverlays: no overlapping elements found'); alert('No overlapping elements found over header'); return; }
-      console.log('detectOverlays: found', overlaps.length, 'overlapping elements');
-      overlaps.forEach((o, i) => {
-        const hi = document.createElement('div');
-        hi.className = 'overlay-highlight';
-        hi.dataset.idx = i;
-        hi.style.left = (o.r.left < 0 ? 0 : o.r.left) + 'px';
-        hi.style.top = (o.r.top < 0 ? 0 : o.r.top) + 'px';
-        hi.style.width = Math.max(2, o.r.width) + 'px';
-        hi.style.height = Math.max(2, o.r.height) + 'px';
-        const label = document.createElement('div');
-        label.className = 'overlay-label';
-        label.textContent = (o.el.tagName.toLowerCase()) + (o.el.id ? '#' + o.el.id : '') + (o.el.className ? ' .' + o.el.className.split(' ').slice(0,2).join('.') : '');
-        hi.appendChild(label);
-        document.body.appendChild(hi);
-      });
-      // auto-remove after 6s
-      setTimeout(()=>{ document.querySelectorAll('.overlay-highlight').forEach(n => n.remove()); }, 6000);
-    }
-
-    // tap visualizer: briefly show an indicator at the touch point (useful to see if touches are reaching the page)
-    let tapVisTimeout = null;
-    function enableTapVisualizer(durationMs = 6000) {
-      function showTap(x, y) {
-        const t = document.createElement('div');
-        t.className = 'tap-indicator';
-        t.style.left = (x - 18) + 'px';
-        t.style.top = (y - 18) + 'px';
-        document.body.appendChild(t);
-        setTimeout(()=>{ t.classList.add('fade'); setTimeout(()=>t.remove(), 220); }, 120);
-      }
-      function touchHandler(ev) {
-        try {
-          const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
-          const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
-          showTap(x, y);
-        } catch (e) {}
-      }
-      document.addEventListener('touchstart', touchHandler, {passive:true});
-      document.addEventListener('click', touchHandler, {capture:true});
-      if (tapVisTimeout) clearTimeout(tapVisTimeout);
-      tapVisTimeout = setTimeout(()=>{
-        document.removeEventListener('touchstart', touchHandler, {passive:true});
-        document.removeEventListener('click', touchHandler, {capture:true});
-      }, durationMs);
-    }
-
-    // create a small detect button near the debug UI so you can run these tools on the phone
-    function createDetectButton() {
-      try {
-        if (document.querySelector('.detect-overlays')) return;
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'detect-overlays';
-        b.textContent = 'Detect overlays';
-        b.style.position = 'fixed';
-        b.style.right = '12px';
-        b.style.bottom = '56px';
-        b.style.zIndex = '2147483647';
-        b.style.padding = '8px 10px';
-        b.style.background = 'rgba(255,80,80,0.9)';
-        b.style.color = '#fff';
-        b.style.border = 'none';
-        b.style.borderRadius = '8px';
-        b.style.fontSize = '13px';
-        b.style.boxShadow = '0 6px 18px rgba(0,0,0,0.45)';
-        b.addEventListener('click', (e) => { e.stopPropagation(); detectOverlays(); enableTapVisualizer(8000); });
-        document.body.appendChild(b);
-      } catch (e) { console.warn('createDetectButton failed', e); }
-    }
-
-    // create on DOM ready so the user can run it
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', createDetectButton);
-    else createDetectButton();
-  } catch (e) { console.warn('overlay debug init failed', e); }
-})();
+// Debug helpers removed for production
