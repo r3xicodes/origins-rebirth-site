@@ -435,28 +435,9 @@ footer {
   display: none !important;
 }
 
-/* Debug UI inherits the topmost layer so you can still access it */
-#js-debug-panel,
-.debug-toggle {
-  z-index: 2147483647 !important;
-}
-
-/* Disable pointer events and selection on everything except the nav, toggle, backdrop and debug UI while the nav is open. */
-body.nav-open *:not(.nav-links):not(.nav-links *):not(.nav-backdrop):not(.menu-toggle):not(#js-debug-panel):not(.debug-toggle) {
-  pointer-events: none !important;
-  user-select: none !important;
-}
-
-/* debug pulse when defensive handler detects touch - temporary */
-.menu-toggle.debug-pulse {
-  box-shadow: 0 0 0 6px rgba(255,255,255,0.06) inset, 0 0 0 6px rgba(255,255,255,0.06);
-  transform: scale(0.98);
-  transition: transform 200ms ease, box-shadow 200ms ease;
-}
-
-/* temporary debug toggle button style */
-.debug-toggle { display: none; }
-@media (max-width: 768px) { .debug-toggle { display: block !important; } }
+/* Production: no debug UI or debug-only pointer rules */
+/* Keep nav-open minimal: only prevent background scroll */
+body.nav-open { overflow: hidden; }
 
 /* ensure backdrop is visible when it has .show (for slide-in mode) */
 .nav-backdrop.show {
