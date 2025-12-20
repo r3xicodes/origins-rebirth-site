@@ -14,6 +14,8 @@ setInterval(showNextSlide, slideInterval);
 
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('loaded');
+  // restore persisted install dismissal if present
+  try { if (localStorage && localStorage.getItem && localStorage.getItem('pwaInstallDismissed') === '1') installDismissed = true; } catch (e) {}
   initNavigation();
   // register service worker for PWA
   registerServiceWorker();
@@ -37,6 +39,7 @@ function registerServiceWorker() {
   window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
     installDismissed = true;
+    try { localStorage.setItem('pwaInstallDismissed','1'); } catch (e) {}
     hideInstallBanner();
     console.log('PWA installed');
   });
@@ -47,11 +50,13 @@ function showInstallBanner() {
   if (!el) return;
   if (installDismissed || !deferredInstallPrompt) return;
   el.hidden = false;
+  try { adjustNavForHeader(); } catch (e) {}
 }
 function hideInstallBanner() {
   const el = document.getElementById('pwa-install');
   if (!el) return;
   el.hidden = true;
+  try { adjustNavForHeader(); } catch (e) {}
 }
 
 // install button handler
@@ -67,6 +72,7 @@ document.addEventListener('click', (e) => {
   }
   if (dismissBtn) {
     installDismissed = true;
+    try { localStorage.setItem('pwaInstallDismissed','1'); } catch (e) {}
     hideInstallBanner();
   }
 });

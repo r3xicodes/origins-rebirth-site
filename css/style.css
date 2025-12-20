@@ -462,6 +462,23 @@ footer {
   pointer-events: auto !important;
 }
 
+/* Reduce touch target padding on very small screens for denser nav */
+@media (max-width: 420px) {
+  .nav-links.drawer a,
+  .nav-links.drawer .dropbtn,
+  .nav-links.drawer .dropdown-content a {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+  /* Improve focus visibility while avoiding a huge white block */
+  .nav-links.drawer a:focus,
+  .nav-links.drawer .dropbtn:focus {
+    outline: 2px solid rgba(255,152,0,0.95);
+    outline-offset: 2px;
+    background: transparent;
+  }
+}
+
 /* Backdrop hidden since the drawer is visually subtle and content floats above it */
 .nav-backdrop {
   display: none !important;
