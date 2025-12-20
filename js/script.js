@@ -49,13 +49,16 @@ function showInstallBanner() {
   const el = document.getElementById('pwa-install');
   if (!el) return;
   if (installDismissed || !deferredInstallPrompt) return;
-  el.hidden = false;
+  // reveal and animate popup
+  try { el.removeAttribute('hidden'); el.setAttribute('aria-hidden','false'); void el.offsetWidth; el.classList.add('show'); } catch (e) {}
   try { adjustNavForHeader(); } catch (e) {}
 }
 function hideInstallBanner() {
   const el = document.getElementById('pwa-install');
   if (!el) return;
-  el.hidden = true;
+  try { el.classList.remove('show'); el.setAttribute('aria-hidden','true'); } catch (e) {}
+  // after animation hides, set hidden for accessibility
+  setTimeout(()=>{ try { if (el && !el.classList.contains('show')) el.setAttribute('hidden',''); } catch (e) {} }, 260);
   try { adjustNavForHeader(); } catch (e) {}
 }
 
@@ -106,6 +109,13 @@ function initNavigation() {
       if (!theNav) return;
       const headerEl = document.querySelector('.site-header');
       const headerHeight = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 56;
+
+      // set a CSS variable so layout can use the measured header height (safer than hardcoding)
+      try { document.documentElement.style.setProperty('--header-offset', headerHeight + 'px'); } catch (e) {}
+
+      // ensure main content sits below the fixed header (handles install banner & safe-area)
+      try { const main = document.querySelector('main'); if (main) main.style.paddingTop = headerHeight + 'px'; } catch (e) {}
+
       if (theNav.classList.contains('drawer') || theNav.classList.contains('show')) {
         theNav.style.top = headerHeight + 'px';
         theNav.style.height = `calc(100vh - ${headerHeight}px)`;

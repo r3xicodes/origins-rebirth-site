@@ -370,7 +370,7 @@ footer {
 
   /* Mobile nav panel width and spacing for touch targets */
   .nav-links {
-    top: 56px; /* just under header */
+    top: var(--header-offset,56px); /* just under header; adjusted by JS when needed */
     width: min(340px, 86vw);
     padding: 0.75rem 0;
     gap: 0.25rem;
@@ -529,6 +529,11 @@ body.nav-open { overflow: hidden; }
   /* Make the header more visible on top of drawer context */
   .site-header { position: fixed; inset: 0 0 auto 0; z-index: 1300; }
   .menu-toggle { z-index: 1400; }
+
+  /* Respect safe-area on notch devices and expose header height to layout */
+  :root { --header-offset: 56px; }
+  .site-header { padding-top: env(safe-area-inset-top); }
+  main { padding-top: var(--header-offset); transition: padding-top 160ms ease; }
 }
 
 /* Small polish: slightly increased letter-spacing for headings for clarity */
@@ -537,15 +542,32 @@ body.nav-open { overflow: hidden; }
 /* PWA install banner */
 .pwa-install {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%) translateY(12px);
+  min-width: 240px;
+  max-width: 92vw;
+  padding: 0.6rem 0.8rem;
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.6rem;
   z-index: 2500;
+  background: rgba(10,14,18,0.96);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
 }
-.pwa-install button { padding: 0.6rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; }
-.pwa-install .btn-primary { background: #ff9800; color: #fff; font-weight: 700; }
-.pwa-install .btn-secondary { background: rgba(0,0,0,0.35); color: #fff; }
+.pwa-install.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.pwa-install .pwa-message { font-size: 0.95rem; opacity: 0.95; margin-right: 0.4rem; }
+.pwa-install .btn-primary { padding: 0.55rem 0.85rem; border-radius: 8px; border: none; cursor: pointer; background: #ff9800; color: #fff; font-weight: 700; }
+.pwa-install .btn-secondary { padding: 0.5rem 0.75rem; border-radius: 8px; border: none; cursor: pointer; background: rgba(255,255,255,0.06); color: #fff; }
 
 @media (min-width: 900px) { .pwa-install { display: none; } }
 

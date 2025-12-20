@@ -58,9 +58,10 @@
   <a href="rule.html">Rules</a>
       <a href="contact.html">Join</a>
     </nav>
-    <div id="pwa-install" class="pwa-install" hidden aria-hidden="true">
-      <button id="installBtn" class="btn-primary">Install App</button>
-      <button id="dismissInstall" class="btn-secondary">Dismiss</button>
+    <div id="pwa-install" class="pwa-install" hidden aria-hidden="true" role="dialog" aria-live="polite">
+      <span class="pwa-message">Add Origins Rebirth to your home screen for quick access.</span>
+      <button id="installBtn" class="btn-primary">Install</button>
+      <button id="dismissInstall" class="btn-secondary" aria-label="Dismiss install prompt">Later</button>
     </div>
   </header>
 
