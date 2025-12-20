@@ -142,8 +142,9 @@ ul {
 .features .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  margin-top: 1em;
+  gap: 1rem;
+  margin-top: 0.8em;
+  align-items: start;
 }
 
 .card {
@@ -152,10 +153,15 @@ ul {
   -webkit-backdrop-filter: blur(10px);
   color: #fff;
   border-radius: 15px;
-  padding: 1.5em;
+  padding: 1.2em 1.4em;
   box-shadow: 0 4px 12px rgba(39, 39, 39, 0.2);
   text-align: center;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
 }
 
 
@@ -196,11 +202,14 @@ footer {
 .home-sections {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3em 1.5em;
+  padding: 2.5em 1.25em;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2em;
+  gap: 1.25rem;
   align-items: start;
+  grid-auto-rows: 1fr;
+  align-content: start;
+  place-items: start stretch; /* ensure each cell 'stretches' to consistent row height */
 }
 
 .home-sections .glass-box {
@@ -208,11 +217,22 @@ footer {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
-  padding: 2em;
+  padding: 1.25em 1.35em;
   color: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* keep content anchored to top and compact */
+  min-height: 200px;
 }
+
+/* Push CTA button down while keeping the card compact */
+.home-sections .glass-box.cta .btn-primary { margin-top: 1.1rem; align-self: flex-start; }
+
+/* Make CTA button sit near bottom on taller cards */
+.home-sections .glass-box.cta { display: flex; flex-direction: column; }
+.home-sections .glass-box.cta .btn-primary { margin-top: auto; }
 
 .home-sections .glass-box:hover {
   transform: translateY(-5px);
@@ -221,19 +241,22 @@ footer {
 
 /* Layering effect only on homepage */
 .home-sections .glass-box.intro {
-  transform: translateY(-40px);
+  transform: translateY(-18px);
+  min-height: 220px;
 }
 .home-sections .glass-box.features {
   transform: translateY(0);
+  min-height: 220px;
 }
 .home-sections .glass-box.cta {
-  transform: translateY(40px);
+  transform: translateY(18px);
+  min-height: 220px;
 }
 
 /* Hover states while staggered */
-.home-sections .glass-box.intro:hover { transform: translateY(-45px); }
-.home-sections .glass-box.features:hover { transform: translateY(-5px); }
-.home-sections .glass-box.cta:hover { transform: translateY(35px); }
+.home-sections .glass-box.intro:hover { transform: translateY(-22px); }
+.home-sections .glass-box.features:hover { transform: translateY(-8px); }
+.home-sections .glass-box.cta:hover { transform: translateY(22px); }
 
 /* Reset to normal stacking on mobile */
 @media (max-width: 768px) {
@@ -400,25 +423,34 @@ footer {
     pointer-events: auto;
   }
 
-/* Keep the drawer visually over the hero background but under the site content.
-   This prevents the menu from covering floating cards/overlays while still
-   giving a transparent overlay feel over the hero carousel. */
-.nav-links, .nav-links.show {
+/* Keep the drawer behavior limited to drawer state on small screens.
+   This prevents the menu from unexpectedly sitting under site content and
+   allows JS to set a very high inline z-index when the menu is shown. */
+.nav-links.drawer, .nav-links.drawer.show {
   position: fixed !important;
-  inset: 0 0 0 0 !important;
+  top: 56px !important; /* sit below the header */
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   width: 100% !important;
-  height: 100vh !important;
+  height: calc(100vh - 56px) !important;
   transform: none !important;
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
-  z-index: 0 !important; /* sit above background but below site content (container z-index:1) */
+  z-index: 1200 !important; /* sits above background and under header */
+  overflow-y: auto !important;
 }
 
-.nav-links.show {
+.nav-links.drawer.show {
   /* semi-transparent so hero is still visible beneath */
   background: linear-gradient(180deg, rgba(6,12,18,0.55), rgba(6,12,18,0.55)) !important;
   backdrop-filter: blur(6px);
+}
+
+/* When JS toggles .show it sets an inline z-index to bring the menu fully on top */
+.nav-links.show {
+  z-index: auto !important;
 }
 
 /* Keep the toggle positioned within the header (header already sits above content) */
@@ -665,6 +697,7 @@ main.container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.8rem;
+  align-items: start; /* ensure columns align at top */
 }
 
 /* Card styling */
@@ -780,6 +813,105 @@ main.container {
     margin: 1rem;
   }
 }
+
+/* Discord widget container styling */
+.discord-widget {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(39, 39, 39, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  margin: 0;
+}
+
+.discord-widget iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Basic glass-box used for subpage panels */
+.glass-box {
+  background: rgba(39, 39, 39, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* About layout: text plus narrow sidebar */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px 360px;
+  gap: 20px;
+  align-items: start;
+}
+
+.about-layout .about-text {
+  padding-right: 10px; /* slight breathing room before divider */
+}
+
+.about-layout .about-text h2 { margin-top: 0; margin-bottom: 0.6rem; }
+.about-layout .about-text p { margin-bottom: 0.9rem; font-size: 1rem; line-height: 1.55; }
+
+.divider {
+  width: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border-radius: 1px;
+  align-self: stretch;
+  margin: 10px 0;
+}
+
+.discord-widget { align-self: start; }
+
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+  .divider { display: none; }
+  .discord-widget { height: 420px; }
+}
+
+@media (max-width: 600px) {
+  .discord-widget { height: 360px; }
+}
+/* Mobile responsiveness tweaks */
+@media (max-width: 900px) {
+  .home-sections {
+    grid-template-columns: 1fr;
+    padding: 1.5em 1rem;
+    gap: 1rem;
+  }
+  .home-sections .glass-box {
+    padding: 1rem;
+    min-height: auto;
+  }
+  .home-sections .glass-box.cta { padding-bottom: 1.25rem; }
+  .home-sections .glass-box.cta .btn-primary { width: min(240px, 84%); align-self: center; }
+  .features .grid { grid-template-columns: 1fr; gap: 0.9rem; }
+  .card { min-height: auto; padding: 1rem; }
+  .hero { height: 40vh; min-height: 200px; padding: 1rem; }
+  .hero h2 { font-size: clamp(1.4rem, 6vw, 2rem); }
+  .site-title { font-size: 1rem; }
+  /* Ensure header doesn't overlap content on mobile */
+  main, .container { padding-top: 72px; }
+}
+
+/* Tighten for small phones */
+@media (max-width: 420px) {
+  .home-sections { padding: 1rem; gap: 0.75rem; }
+  .home-sections .glass-box { padding: 0.9rem; border-radius: 12px; }
+  .btn-primary { padding: 0.6rem 1rem; font-size: 0.95rem; }
+  .hero { height: 35vh; min-height: 160px; }
+  .site-header { padding: 0.5rem 1rem; }
+}
+
 /* Hamburger toggle button hidden by default (PC) */
 .menu-toggle {
   display: none;
