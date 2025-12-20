@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0b0b0b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="assets/logo.png">
 </head>
 <body>
   <!-- ✦ BACKGROUND SLIDER -->
@@ -50,6 +55,10 @@
   <a href="rule.html">Rules</a>
       <a href="contact.html">Join</a>
     </nav>
+    <div id="pwa-install" class="pwa-install" hidden aria-hidden="true">
+      <button id="installBtn" class="btn-primary">Install App</button>
+      <button id="dismissInstall" class="btn-secondary">Dismiss</button>
+    </div>
   </header>
 
   <!-- ✦ HERO SECTION -->

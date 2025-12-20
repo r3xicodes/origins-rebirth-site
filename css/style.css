@@ -517,6 +517,22 @@ body.nav-open { overflow: hidden; }
 /* Small polish: slightly increased letter-spacing for headings for clarity */
 .hero h2 { letter-spacing: -0.5px; }
 
+/* PWA install banner */
+.pwa-install {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2500;
+}
+.pwa-install button { padding: 0.6rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; }
+.pwa-install .btn-primary { background: #ff9800; color: #fff; font-weight: 700; }
+.pwa-install .btn-secondary { background: rgba(0,0,0,0.35); color: #fff; }
+
+@media (min-width: 900px) { .pwa-install { display: none; } }
+
+
 .nav-links {
   display: flex;
   gap: 2em;
