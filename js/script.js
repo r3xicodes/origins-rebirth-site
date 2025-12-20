@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Service worker registration and PWA install prompt handling
 let deferredInstallPrompt = null;
+let installDismissed = false;
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
   navigator.serviceWorker.register('/sw.js')
@@ -30,11 +31,12 @@ function registerServiceWorker() {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e; // save for later
-    showInstallBanner();
+    if (!installDismissed) showInstallBanner();
   });
 
   window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
+    installDismissed = true;
     hideInstallBanner();
     console.log('PWA installed');
   });
@@ -43,6 +45,7 @@ function registerServiceWorker() {
 function showInstallBanner() {
   const el = document.getElementById('pwa-install');
   if (!el) return;
+  if (installDismissed || !deferredInstallPrompt) return;
   el.hidden = false;
 }
 function hideInstallBanner() {
@@ -63,6 +66,7 @@ document.addEventListener('click', (e) => {
     }).catch(() => {});
   }
   if (dismissBtn) {
+    installDismissed = true;
     hideInstallBanner();
   }
 });
@@ -85,9 +89,28 @@ function initNavigation() {
     if (!nav) return;
     if (window.matchMedia('(max-width: 420px)').matches) nav.classList.add('drawer');
     else nav.classList.remove('drawer');
+    adjustNavForHeader();
   }
   updateNavMode();
-  window.addEventListener('resize', updateNavMode);
+  window.addEventListener('resize', () => { updateNavMode(); adjustNavForHeader(); });
+
+  function adjustNavForHeader() {
+    try {
+      const theNav = (document.getElementById('navMenu') || document.querySelector('.nav-links'));
+      if (!theNav) return;
+      const headerEl = document.querySelector('.site-header');
+      const headerHeight = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 56;
+      if (theNav.classList.contains('drawer') || theNav.classList.contains('show')) {
+        theNav.style.top = headerHeight + 'px';
+        theNav.style.height = `calc(100vh - ${headerHeight}px)`;
+        theNav.style.overflowY = 'auto';
+      } else {
+        theNav.style.top = '';
+        theNav.style.height = '';
+        theNav.style.overflowY = '';
+      }
+    } catch (e) { /* ignore */ }
+  }
 
   // Dropdown behavior
   dropdowns.forEach(drop => {
