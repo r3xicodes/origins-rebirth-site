@@ -179,10 +179,17 @@ function initNavigation() {
       if (shown) {
         try { theNav.style.zIndex = '2147483000'; } catch (e) {}
         try { menuToggle.style.zIndex = '2147483001'; } catch (e) {}
+        // ensure the nav starts below whatever header height (includes install banner) and is scrollable
+        try { adjustNavForHeader(); } catch (e) {}
+        // hide install prompt while nav is open to avoid overlap
+        try { hideInstallBanner(); } catch (e) {}
         setTimeout(()=>{ const f = theNav.querySelector('a, button, [tabindex]:not([tabindex="-1"])'); if (f) f.focus(); }, 60);
       } else {
         try { theNav.style.zIndex = ''; } catch (e) {}
         try { menuToggle.style.zIndex = ''; } catch (e) {}
+        // restore nav dimensions and banner when closed
+        try { adjustNavForHeader(); } catch (e) {}
+        try { if (deferredInstallPrompt && !installDismissed) showInstallBanner(); } catch (e) {}
       }
       toggleInertBackdrop(shown);
       if (shown) trapFocus(theNav); else releaseFocusTrap();
@@ -224,6 +231,8 @@ function initNavigation() {
     try { if (menuToggle) menuToggle.style.zIndex = ''; } catch (e) {}
     toggleInertBackdrop(false);
     releaseFocusTrap();
+    try { adjustNavForHeader(); } catch (e) {}
+    try { if (deferredInstallPrompt && !installDismissed) showInstallBanner(); } catch (e) {}
   }
 
   if (nav) nav.addEventListener('click', (e) => { const link = e.target.closest('a'); if (!link) return; if (link.classList.contains('dropbtn')) return; closeMenu(); });
