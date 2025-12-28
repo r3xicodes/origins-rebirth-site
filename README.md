@@ -1,4 +1,4 @@
-# origins-rebirth-site
+# origins-ascendants-site
 
 ## Progressive Web App (PWA)
 This site now includes a basic PWA setup so it can be installed on mobile devices.

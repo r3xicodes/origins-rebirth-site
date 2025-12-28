@@ -1,7 +1,7 @@
 {
-  "name": "Origins Rebirth",
+  "name": "Origins Ascendants",
   "short_name": "Origins",
-  "description": "Origins Rebirth - a custom Minecraft server.",
+  "description": "Origins Ascendants - a custom Minecraft server.",
   "start_url": ".",
   "scope": "/",
   "display": "standalone",

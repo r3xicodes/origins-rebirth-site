@@ -1,4 +1,4 @@
-const CACHE_NAME = 'origins-rebirth-v1';
+const CACHE_NAME = 'origins-ascendants-v1';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
